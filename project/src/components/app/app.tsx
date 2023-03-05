@@ -6,8 +6,8 @@ type FilmCardProps = {
   release: number;
 }
 
-function App({ title, genre, release }: FilmCardProps): JSX.Element {
-  return <MainPage title = {title} genre = {genre} release = {release} />;
+function App({title, genre, release}: FilmCardProps): JSX.Element {
+  return <MainPage title={title} genre={genre} release={release} />;
 }
 
 export default App;

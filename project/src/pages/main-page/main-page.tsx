@@ -6,7 +6,7 @@ type FilmCardProps = {
   release: number;
 }
 
-function MainPage({ title, genre, release }: FilmCardProps): JSX.Element {
+function MainPage({title, genre, release}: FilmCardProps): JSX.Element {
   return (
     <>
       <section className="film-card">

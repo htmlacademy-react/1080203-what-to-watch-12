@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+  document.getElementById('root') as HTMLElement
 );
 
 const FilmInfo = {
@@ -15,9 +15,9 @@ const FilmInfo = {
 root.render(
   <React.StrictMode>
     <App
-      title = {FilmInfo.title}
-      genre = {FilmInfo.genre}
-      release = {FilmInfo.release}
+      title={FilmInfo.title}
+      genre={FilmInfo.genre}
+      release={FilmInfo.release}
     />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

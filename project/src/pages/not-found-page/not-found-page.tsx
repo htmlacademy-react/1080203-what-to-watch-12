@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+
 function NotFoundPage(): JSX.Element {
   return (
     <>
       <h1>404 Page not found</h1>
-      <a href="/">На главную</a>
+      <Link to="/">На главную</Link>
     </>
   );
 }

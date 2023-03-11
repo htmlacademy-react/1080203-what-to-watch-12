@@ -8,20 +8,15 @@ import FilmPage from '../../pages/film-page/film-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { FilmsProps } from '../../types/films-props-type';
 
-type FilmCardProps = {
-  title: string;
-  genre: string;
-  release: number;
-}
-
-function App({title, genre, release}: FilmCardProps): JSX.Element {
+function App({promo, films}: FilmsProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoutes.Main}
-          element={<MainPage title={title} genre={genre} release={release} />}
+          element={<MainPage promo={promo} films={films} />}
         />
         <Route
           path={AppRoutes.SignIn}
@@ -30,8 +25,8 @@ function App({title, genre, release}: FilmCardProps): JSX.Element {
         <Route
           path={AppRoutes.MyList}
           element={
-            <PrivateRoute authStatus={AuthStatus.NoAuth}>
-              <MyListPage />
+            <PrivateRoute authStatus={AuthStatus.Auth}>
+              <MyListPage films={films} />
             </PrivateRoute>
           }
         />

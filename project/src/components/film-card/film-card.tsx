@@ -1,11 +1,26 @@
-function FilmCard(): JSX.Element {
+import {useState} from 'react';
+import { Link, generatePath } from 'react-router-dom';
+import { AppRoutes } from '../../const';
+import { FilmCardProps } from '../../types/film-card-props';
+
+function FilmCard({previewImage, name, id}: FilmCardProps): JSX.Element {
+  const [hoveredFilmCard, setHoveredFilmCard] = useState<number|null>(null);
+
+  const onMouseEnter = (filmId: number): number|null => {
+    setHoveredFilmCard(id);
+
+    return hoveredFilmCard;
+  };
+
   return (
-    <article className="small-film-card catalog__films-card">
+    // Вопрос Можно ли и нужно ли обойтись без анонимной функции?
+    // Вопрос Надо ли что-то возвращать и если да, то как это получить в компоненте-родителе?
+    <article className="small-film-card catalog__films-card" onMouseEnter={() => onMouseEnter(id)}>
       <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
+        <img src={previewImage} alt={name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+        <Link to={generatePath(AppRoutes.Film, { id: `${id}` })} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

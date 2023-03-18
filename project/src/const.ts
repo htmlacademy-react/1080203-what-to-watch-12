@@ -13,4 +13,6 @@ enum AuthStatus {
   Unknown = 'UNKNOWN'
 }
 
-export { AppRoutes, AuthStatus };
+const PREVIEW_VIDEO_DELAY = 1000;
+
+export { AppRoutes, AuthStatus, PREVIEW_VIDEO_DELAY };

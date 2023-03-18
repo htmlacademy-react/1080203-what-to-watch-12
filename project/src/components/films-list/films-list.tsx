@@ -15,6 +15,7 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
         <FilmCard
           key={film.id}
           previewImage={film.previewImage}
+          previewVideo={film.previewVideoLink}
           name={film.name}
           id={film.id}
         />

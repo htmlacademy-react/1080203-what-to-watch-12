@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useParams, generatePath, Link } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import Logo from '../../components/logo/logo';
@@ -8,37 +9,38 @@ import MyListButton from '../../components/my-list-button/my-list-button';
 import { getFilmById } from '../../utils';
 import FilmsList from '../../components/films-list/films-list';
 import { mockFilms } from '../../mocks/films';
-
-// todo Сделать сброс скрола
+import { FILM_LEVELS, SYMBOLS } from '../../const';
 
 function FilmPage(): JSX.Element {
   const { id } = useParams();
   const currentFilm = getFilmById(id);
 
-  const getLevelByRating = () => {
+  const getLevelByRating = (filmRating: number | undefined) => {
     let currentLevel = '';
-    const rating = currentFilm?.rating === undefined ? '0' : currentFilm?.rating;
+    const rating = filmRating === undefined ? 0 : filmRating;
 
     switch (true) {
-      case rating >= 0 && rating < 3:
-        currentLevel = 'Bad';
+      case rating >= FILM_LEVELS.BAD.MIN && rating <= FILM_LEVELS.BAD.MAX:
+        currentLevel = FILM_LEVELS.BAD.NAME;
         break;
-      case rating >= 3 && rating < 5:
-        currentLevel = 'Normal';
+      case rating >= FILM_LEVELS.NORMAL.MIN && rating <= FILM_LEVELS.NORMAL.MAX:
+        currentLevel = FILM_LEVELS.NORMAL.NAME;
         break;
-      case rating >= 5 && rating < 8:
-        currentLevel = 'Good';
+      case rating >= FILM_LEVELS.GOOD.MIN && rating <= FILM_LEVELS.GOOD.MAX:
+        currentLevel = FILM_LEVELS.GOOD.NAME;
         break;
-      case rating >= 8 && rating < 10:
-        currentLevel = 'Very good';
+      case rating >= FILM_LEVELS.VERY_GOOD.MIN && rating <= FILM_LEVELS.VERY_GOOD.MAX:
+        currentLevel = FILM_LEVELS.VERY_GOOD.NAME;
         break;
-      case rating === 10:
-        currentLevel = 'Awesome';
+      case rating === FILM_LEVELS.AWESOME.MAX:
+        currentLevel = FILM_LEVELS.AWESOME.NAME;
         break;
     }
 
     return currentLevel;
   };
+
+  const currentLevel = useMemo(() => getLevelByRating(currentFilm?.rating), [currentFilm?.rating]);
 
   return (
     <>
@@ -99,7 +101,7 @@ function FilmPage(): JSX.Element {
               <div className="film-rating">
                 <div className="film-rating__score">{currentFilm?.rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">{getLevelByRating()}</span>
+                  <span className="film-rating__level">{currentLevel}</span>
                   <span className="film-rating__count">{currentFilm?.scoresCount} ratings</span>
                 </p>
               </div>
@@ -109,8 +111,11 @@ function FilmPage(): JSX.Element {
 
                 <p className="film-card__director"><strong>Director: {currentFilm?.director}</strong></p>
 
-                {/* Вопрос Нужно ли выносить в константу ', ' */}
-                <p className="film-card__starring"><strong>Starring: {currentFilm?.starring.join(', ')}</strong></p>
+                <p className="film-card__starring">
+                  <strong>
+                    Starring: {useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring])}
+                  </strong>
+                </p>
               </div>
             </div>
           </div>

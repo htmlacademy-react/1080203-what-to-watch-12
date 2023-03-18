@@ -1,17 +1,10 @@
-import { Films } from '../../types/film-type';
+import { FilmsListProps } from '../../types/film-list-props';
 import FilmCard from '../film-card/film-card';
-
-// Вопрос Этот тип повторяется в myList, нужно ли вынести в файл с типами?
-type FilmsListProps = {
-  films: Films;
-}
 
 function FilmsList({films}: FilmsListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
-
       {films.map((film) => (
-
         <FilmCard
           key={film.id}
           previewImage={film.previewImage}
@@ -19,9 +12,7 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
           name={film.name}
           id={film.id}
         />
-
       ))}
-
     </div>
   );
 }

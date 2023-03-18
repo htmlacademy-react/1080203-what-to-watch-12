@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import { FilmCardProps } from '../../types/film-card-props-type';

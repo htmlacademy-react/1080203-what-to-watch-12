@@ -36,7 +36,7 @@ function MainPage({promo, films}: FilmsProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton id={`${promo.id}`} />
+                <PlayButton id={promo.id.toString()} />
 
                 <MyListButton />
               </div>

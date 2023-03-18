@@ -39,7 +39,7 @@ function AddReview(): JSX.Element {
                   className="rating__label"
                   htmlFor={`star-${rating}`}
                 >
-                    Rating {rating}
+                  Rating {rating}
                 </label>
               </React.Fragment>
             ))}

@@ -41,6 +41,7 @@ function FilmPage(): JSX.Element {
   };
 
   const currentLevel = useMemo(() => getLevelByRating(currentFilm?.rating), [currentFilm?.rating]);
+  const starringList = useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring]);
 
   return (
     <>
@@ -113,7 +114,7 @@ function FilmPage(): JSX.Element {
 
                 <p className="film-card__starring">
                   <strong>
-                    Starring: {useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring])}
+                    Starring: {starringList}
                   </strong>
                 </p>
               </div>

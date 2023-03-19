@@ -4,7 +4,8 @@ enum AppRoutes {
   MyList = '/mylist',
   Film = '/films/:id',
   AddReview = '/films/:id/review',
-  Player = '/player/:id'
+  Player = '/player/:id',
+  Tabs = '/films/:id/:tabhash'
 }
 
 enum AuthStatus {
@@ -44,9 +45,34 @@ const FILM_LEVELS = {
 };
 
 const SYMBOLS = {
-  COMMA_AND_SPACE: ', '
+  COMMA_AND_SPACE: ', ',
+  COMMA: ',',
+  EMPTY: ''
 };
 
 const FILM_RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
-export { AppRoutes, AuthStatus, FILM_LEVELS, SYMBOLS, FILM_RATING, PREVIEW_VIDEO_DELAY };
+const FILM_TAB_HASHES = {
+  OVERVIEW: '',
+  DETAILS: '#details',
+  REVIEWS: '#reviews'
+};
+
+const DATE_FORMATS = {
+  REVIEW_DATE: 'MMMM D, YYYY',
+  DATE_TIME_PARAM: 'YYYY-MM-DD'
+};
+
+const MORE_LIKE_THIS_MAX_COUNT = 4;
+
+export {
+  AppRoutes,
+  AuthStatus,
+  FILM_LEVELS,
+  SYMBOLS,
+  FILM_RATING,
+  PREVIEW_VIDEO_DELAY,
+  FILM_TAB_HASHES,
+  DATE_FORMATS,
+  MORE_LIKE_THIS_MAX_COUNT
+};

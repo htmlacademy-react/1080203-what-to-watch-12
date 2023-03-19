@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
-import { FilmReview } from '../../types/film-review-type';
+import { FilmNewReview } from '../../types/film-new-review-type';
 import { FILM_RATING } from '../../const';
 
 function AddReview(): JSX.Element {
-  const startState: FilmReview = { rating: '0', review: '' };
+  const startState: FilmNewReview = { rating: '0', review: '' };
   const [reviewState, setReviewState] = useState(startState);
 
   const changeRatingHandler = (e: ChangeEvent<HTMLInputElement>): void => {

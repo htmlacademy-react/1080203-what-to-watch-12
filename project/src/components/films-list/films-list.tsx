@@ -1,10 +1,13 @@
-import { FilmsListProps } from '../../types/film-list-props';
+import { FilmsListProps } from '../../types/film-list-props-type';
 import FilmCard from '../film-card/film-card';
+import { MORE_LIKE_THIS_MAX_COUNT } from '../../const';
 
-function FilmsList({films}: FilmsListProps): JSX.Element {
+function FilmsList({films, isMoreLikeThis}: FilmsListProps): JSX.Element {
+  const filmsToShow = isMoreLikeThis ? films.slice(0, MORE_LIKE_THIS_MAX_COUNT) : films;
+
   return (
     <div className="catalog__films-list">
-      {films.map((film) => (
+      {filmsToShow.map((film) => (
         <FilmCard
           key={film.id}
           previewImage={film.previewImage}

@@ -82,7 +82,7 @@ function MainPage({promo, films}: FilmsProps): JSX.Element {
             </li>
           </ul>
 
-          <FilmsList films={films} />
+          <FilmsList films={films} isMoreLikeThis={false} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

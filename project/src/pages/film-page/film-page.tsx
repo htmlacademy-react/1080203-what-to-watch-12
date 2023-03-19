@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useParams, generatePath, Link } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import Logo from '../../components/logo/logo';
@@ -9,39 +8,39 @@ import MyListButton from '../../components/my-list-button/my-list-button';
 import { getFilmById } from '../../utils';
 import FilmsList from '../../components/films-list/films-list';
 import { mockFilms } from '../../mocks/films';
-import { FILM_LEVELS, SYMBOLS } from '../../const';
+import FilmTabs from '../../components/film-tabs/film-tabs';
 
 function FilmPage(): JSX.Element {
   const { id } = useParams();
-  const currentFilm = getFilmById(id);
+  const currentFilm = getFilmById(id); // todo Проверить, нужен ли тип
 
-  const getLevelByRating = (filmRating: number | undefined) => {
-    let currentLevel = '';
-    const rating = filmRating === undefined ? 0 : filmRating;
+  // const getLevelByRating = (filmRating: number | undefined) => {
+  //   let currentLevel = '';
+  //   const rating = filmRating === undefined ? 0 : filmRating;
 
-    switch (true) {
-      case rating >= FILM_LEVELS.BAD.MIN && rating <= FILM_LEVELS.BAD.MAX:
-        currentLevel = FILM_LEVELS.BAD.NAME;
-        break;
-      case rating >= FILM_LEVELS.NORMAL.MIN && rating <= FILM_LEVELS.NORMAL.MAX:
-        currentLevel = FILM_LEVELS.NORMAL.NAME;
-        break;
-      case rating >= FILM_LEVELS.GOOD.MIN && rating <= FILM_LEVELS.GOOD.MAX:
-        currentLevel = FILM_LEVELS.GOOD.NAME;
-        break;
-      case rating >= FILM_LEVELS.VERY_GOOD.MIN && rating <= FILM_LEVELS.VERY_GOOD.MAX:
-        currentLevel = FILM_LEVELS.VERY_GOOD.NAME;
-        break;
-      case rating === FILM_LEVELS.AWESOME.MAX:
-        currentLevel = FILM_LEVELS.AWESOME.NAME;
-        break;
-    }
+  //   switch (true) {
+  //     case rating >= FILM_LEVELS.BAD.MIN && rating <= FILM_LEVELS.BAD.MAX:
+  //       currentLevel = FILM_LEVELS.BAD.NAME;
+  //       break;
+  //     case rating >= FILM_LEVELS.NORMAL.MIN && rating <= FILM_LEVELS.NORMAL.MAX:
+  //       currentLevel = FILM_LEVELS.NORMAL.NAME;
+  //       break;
+  //     case rating >= FILM_LEVELS.GOOD.MIN && rating <= FILM_LEVELS.GOOD.MAX:
+  //       currentLevel = FILM_LEVELS.GOOD.NAME;
+  //       break;
+  //     case rating >= FILM_LEVELS.VERY_GOOD.MIN && rating <= FILM_LEVELS.VERY_GOOD.MAX:
+  //       currentLevel = FILM_LEVELS.VERY_GOOD.NAME;
+  //       break;
+  //     case rating === FILM_LEVELS.AWESOME.MAX:
+  //       currentLevel = FILM_LEVELS.AWESOME.NAME;
+  //       break;
+  //   }
 
-    return currentLevel;
-  };
+  //   return currentLevel;
+  // };
 
-  const currentLevel = useMemo(() => getLevelByRating(currentFilm?.rating), [currentFilm?.rating]);
-  const starringList = useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring]);
+  // const currentLevel = useMemo(() => getLevelByRating(currentFilm?.rating), [currentFilm?.rating]);
+  // const starringList = useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring]);
 
   return (
     <>
@@ -85,39 +84,7 @@ function FilmPage(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="/#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{currentFilm?.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{currentLevel}</span>
-                  <span className="film-rating__count">{currentFilm?.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{currentFilm?.description}</p>
-
-                <p className="film-card__director"><strong>Director: {currentFilm?.director}</strong></p>
-
-                <p className="film-card__starring">
-                  <strong>
-                    Starring: {starringList}
-                  </strong>
-                </p>
-              </div>
+              <FilmTabs id={id ?? ''} currentFilm={currentFilm} />
             </div>
           </div>
         </div>
@@ -127,7 +94,7 @@ function FilmPage(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={mockFilms} />
+          <FilmsList films={mockFilms} isMoreLikeThis />
         </section>
 
         <Footer />

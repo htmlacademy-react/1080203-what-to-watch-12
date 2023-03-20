@@ -1,11 +1,22 @@
-function FilmCard(): JSX.Element {
+import { useState } from 'react';
+import { Link, generatePath } from 'react-router-dom';
+import { AppRoutes } from '../../const';
+import { FilmCardProps } from '../../types/film-card-props-type';
+import PreviewVideo from '../preview-video/preview-video';
+
+function FilmCard({previewImage, previewVideo, name, id}: FilmCardProps): JSX.Element {
+  const [, setHoveredFilmCard] = useState<number|null>(null);
+
+  const onMouseEnter = (): void => {
+    setHoveredFilmCard(id);
+  };
+
   return (
-    <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-      </div>
+    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter}>
+      <PreviewVideo posterSrc={previewImage} previewSrc={previewVideo} />
+
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+        <Link to={generatePath(AppRoutes.Film, { id: id.toString() })} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

@@ -1,23 +1,29 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { PREVIEW_VIDEO_DELAY } from '../../const';
 import { PreviewVideoProps } from '../../types/preview-video-props-type';
 
 function PreviewVideo({ posterSrc, previewSrc }: PreviewVideoProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [timeId, setTimeId] = useState<ReturnType<typeof setTimeout>>();
+  let timeout: ReturnType<typeof setTimeout>;
 
   const playVideo = () => {
-    if (videoRef.current !== null) {
-      setTimeout(() => {
-        if (videoRef.current !== null) {
-          videoRef.current.play();
-        }
-      }, PREVIEW_VIDEO_DELAY);
-    }
+    timeout = setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+    }, PREVIEW_VIDEO_DELAY);
+
+    setTimeId(timeout);
   };
 
   const stopVideo = () => {
-    if (videoRef.current !== null) {
+    if (videoRef.current) {
       videoRef.current.load();
+
+      if (timeId) {
+        clearTimeout(timeId);
+      }
     }
   };
 

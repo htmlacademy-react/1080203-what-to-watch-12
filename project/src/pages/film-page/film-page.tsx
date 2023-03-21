@@ -12,35 +12,7 @@ import FilmTabs from '../../components/film-tabs/film-tabs';
 
 function FilmPage(): JSX.Element {
   const { id } = useParams();
-  const currentFilm = getFilmById(id); // todo Проверить, нужен ли тип
-
-  // const getLevelByRating = (filmRating: number | undefined) => {
-  //   let currentLevel = '';
-  //   const rating = filmRating === undefined ? 0 : filmRating;
-
-  //   switch (true) {
-  //     case rating >= FILM_LEVELS.BAD.MIN && rating <= FILM_LEVELS.BAD.MAX:
-  //       currentLevel = FILM_LEVELS.BAD.NAME;
-  //       break;
-  //     case rating >= FILM_LEVELS.NORMAL.MIN && rating <= FILM_LEVELS.NORMAL.MAX:
-  //       currentLevel = FILM_LEVELS.NORMAL.NAME;
-  //       break;
-  //     case rating >= FILM_LEVELS.GOOD.MIN && rating <= FILM_LEVELS.GOOD.MAX:
-  //       currentLevel = FILM_LEVELS.GOOD.NAME;
-  //       break;
-  //     case rating >= FILM_LEVELS.VERY_GOOD.MIN && rating <= FILM_LEVELS.VERY_GOOD.MAX:
-  //       currentLevel = FILM_LEVELS.VERY_GOOD.NAME;
-  //       break;
-  //     case rating === FILM_LEVELS.AWESOME.MAX:
-  //       currentLevel = FILM_LEVELS.AWESOME.NAME;
-  //       break;
-  //   }
-
-  //   return currentLevel;
-  // };
-
-  // const currentLevel = useMemo(() => getLevelByRating(currentFilm?.rating), [currentFilm?.rating]);
-  // const starringList = useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring]);
+  const currentFilm = getFilmById(id);
 
   return (
     <>

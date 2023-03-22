@@ -5,16 +5,13 @@ import { PreviewVideoProps } from '../../types/preview-video-props-type';
 function PreviewVideo({ posterSrc, previewSrc }: PreviewVideoProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [timeId, setTimeId] = useState<ReturnType<typeof setTimeout>>();
-  let timeout: ReturnType<typeof setTimeout>;
 
   const playVideo = () => {
-    timeout = setTimeout(() => {
+    setTimeId(setTimeout(() => {
       if (videoRef.current) {
         videoRef.current.play();
       }
-    }, PREVIEW_VIDEO_DELAY);
-
-    setTimeId(timeout);
+    }, PREVIEW_VIDEO_DELAY));
   };
 
   const stopVideo = () => {

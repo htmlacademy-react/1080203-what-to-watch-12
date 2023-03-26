@@ -19,7 +19,7 @@ function App({promo, films}: FilmsProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoutes.Main}
-            element={<MainPage promo={promo} films={films} />}
+            element={<MainPage promo={promo} />}
           />
           <Route
             path={AppRoutes.SignIn}

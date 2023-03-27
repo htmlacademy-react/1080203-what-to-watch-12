@@ -4,9 +4,27 @@ import UserBlock from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
-import { FilmsProps } from '../../types/films-props-type';
+import GenresList from '../../components/genres-list/genres-list';
+import { Film } from '../../types/film-type';
+import { useAppSelector } from '../../hooks';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { changeGenre } from '../../store/actions';
+import { capitalizeFirstLetter } from '../../utils';
+import { SYMBOLS } from '../../const';
 
-function MainPage({promo, films}: FilmsProps): JSX.Element {
+function MainPage({ promo }: { promo: Film }): JSX.Element {
+  const dispatch = useAppDispatch();
+  const filteredFilms = useAppSelector((state) => state.films);
+  const currentGenre = useAppSelector((state) => state.genre);
+  const location = useLocation();
+
+  const getGenreByHash = (hash: string): string => capitalizeFirstLetter(hash.replace(SYMBOLS.HASH, SYMBOLS.EMPTY));
+
+  if (location.hash && getGenreByHash(location.hash) !== currentGenre) {
+    dispatch(changeGenre({ genre: getGenreByHash(location.hash) }));
+  }
+
   return (
     <>
       <section className="film-card">
@@ -49,40 +67,9 @@ function MainPage({promo, films}: FilmsProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="/#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresList />
 
-          <FilmsList films={films} isMoreLikeThis={false} />
+          <FilmsList films={filteredFilms} isMoreLikeThis={false} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

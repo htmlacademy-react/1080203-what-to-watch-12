@@ -1,5 +1,6 @@
 enum AppRoutes {
   Main = '/',
+  Genre = '/:genre',
   SignIn = '/login',
   MyList = '/mylist',
   Film = '/films/:id',
@@ -47,7 +48,8 @@ const FILM_LEVELS = {
 const SYMBOLS = {
   COMMA_AND_SPACE: ', ',
   COMMA: ',',
-  EMPTY: ''
+  EMPTY: '',
+  HASH: '#'
 };
 
 const FILM_RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
@@ -65,6 +67,14 @@ const DATE_FORMATS = {
 
 const MORE_LIKE_THIS_MAX_COUNT = 4;
 
+const GENRES = {
+  ALL: {
+    HASH: '',
+    NAME: '',
+    TITLE: 'All genres'
+  }
+};
+
 export {
   AppRoutes,
   AuthStatus,
@@ -74,5 +84,6 @@ export {
   PREVIEW_VIDEO_DELAY,
   FILM_TAB_HASHES,
   DATE_FORMATS,
-  MORE_LIKE_THIS_MAX_COUNT
+  MORE_LIKE_THIS_MAX_COUNT,
+  GENRES
 };

@@ -49,7 +49,8 @@ const SYMBOLS = {
   COMMA_AND_SPACE: ', ',
   COMMA: ',',
   EMPTY: '',
-  HASH: '#'
+  HASH: '#',
+  SLASH: '/'
 };
 
 const FILM_RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
@@ -75,6 +76,8 @@ const GENRES = {
   }
 };
 
+const FILMS_COUNT_STEP = 8;
+
 export {
   AppRoutes,
   AuthStatus,
@@ -85,5 +88,6 @@ export {
   FILM_TAB_HASHES,
   DATE_FORMATS,
   MORE_LIKE_THIS_MAX_COUNT,
-  GENRES
+  GENRES,
+  FILMS_COUNT_STEP
 };

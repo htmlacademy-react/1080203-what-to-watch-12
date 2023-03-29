@@ -2,14 +2,9 @@ import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { Films } from '../../types/film-type';
+import { MyListPageProps } from '../../types/my-list-page-props-type';
 
-// todo Заменить тип на MyListProps
-type FilmsListProps = {
-  films: Films;
-}
-
-function MyListPage({films}: FilmsListProps): JSX.Element {
+function MyListPage({films}: MyListPageProps): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

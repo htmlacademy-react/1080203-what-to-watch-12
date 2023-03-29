@@ -4,4 +4,4 @@ export const changeGenre = createAction<{ genre: string }>('changeGenre');
 
 export const showMoreFilms = createAction('showMoreFilms');
 
-export const resetFilmsCount = createAction('resetFilmsCount');
+export const resetFilmsCount = createAction<boolean>('resetFilmsCount');

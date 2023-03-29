@@ -4,6 +4,7 @@ import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import { Films } from '../../types/film-type';
 
+// todo Заменить тип на MyListProps
 type FilmsListProps = {
   films: Films;
 }
@@ -22,7 +23,7 @@ function MyListPage({films}: FilmsListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmsList films={films} isMoreLikeThis={false} />
+        <FilmsList films={films} isMoreLikeThis={false} isMyList />
       </section>
 
       <Footer />

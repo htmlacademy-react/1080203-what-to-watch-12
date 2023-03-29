@@ -66,7 +66,7 @@ function FilmPage(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={mockFilms} isMoreLikeThis />
+          <FilmsList films={mockFilms} isMoreLikeThis isMyList={false} />
         </section>
 
         <Footer />

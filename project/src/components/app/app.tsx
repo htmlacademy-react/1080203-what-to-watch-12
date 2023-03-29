@@ -10,12 +10,13 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { FilmsProps } from '../../types/films-props-type';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-
+import ResetFilmsCount from '../reset-films-count/reset-films-count';
 
 function App({promo, films}: FilmsProps): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop>
+        <ResetFilmsCount />
         <Routes>
           <Route
             path={AppRoutes.Main}

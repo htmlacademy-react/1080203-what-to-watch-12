@@ -5,6 +5,7 @@ import Footer from '../../components/footer/footer';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import GenresList from '../../components/genres-list/genres-list';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { Film } from '../../types/film-type';
 import { useAppSelector } from '../../hooks';
 import { useLocation } from 'react-router-dom';
@@ -69,11 +70,9 @@ function MainPage({ promo }: { promo: Film }): JSX.Element {
 
           <GenresList />
 
-          <FilmsList films={filteredFilms} isMoreLikeThis={false} />
+          <FilmsList films={filteredFilms} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMoreButton />
         </section>
 
         <Footer />

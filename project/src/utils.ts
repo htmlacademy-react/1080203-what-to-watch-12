@@ -1,5 +1,6 @@
 import { Film } from './types/film-type';
 import { mockFilms } from './mocks/films';
+import { SYMBOLS } from './const';
 
 function getFilmById(filmId: string|undefined): Film|undefined {
   return mockFilms.find((film) => filmId !== undefined ? film.id === +filmId : undefined);
@@ -23,9 +24,18 @@ function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function removeLastSlash(string: string | undefined) {
+  if (string && string.charAt(string.length - 1) === SYMBOLS.SLASH) {
+    string = string.slice(0, string.length - 1);
+  }
+
+  return string;
+}
+
 export {
   getFilmById,
   convertMinutesToHouersAndMinutes,
   isOdd,
-  capitalizeFirstLetter
+  capitalizeFirstLetter,
+  removeLastSlash
 };

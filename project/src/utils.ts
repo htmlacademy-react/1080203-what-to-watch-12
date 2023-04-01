@@ -25,7 +25,7 @@ function capitalizeFirstLetter(string: string): string {
 }
 
 function removeLastSlash(string: string | undefined) {
-  if (string !== undefined && string.charAt(string.length - 1) === SYMBOLS.SLASH) {
+  if (string && string.charAt(string.length - 1) === SYMBOLS.SLASH) {
     string = string.slice(0, string.length - 1);
   }
 

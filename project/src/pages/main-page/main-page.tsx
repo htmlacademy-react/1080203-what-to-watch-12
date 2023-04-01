@@ -70,7 +70,7 @@ function MainPage({ promo }: { promo: Film }): JSX.Element {
 
           <GenresList />
 
-          <FilmsList films={filteredFilms} isMoreLikeThis={false} isMyList={false} />
+          <FilmsList films={filteredFilms} />
 
           <ShowMoreButton />
         </section>

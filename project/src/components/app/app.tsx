@@ -9,14 +9,12 @@ import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { FilmsProps } from '../../types/films-props-type';
-import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import ResetFilmsCount from '../reset-films-count/reset-films-count';
+import Container from '../container/container';
 
 function App({promo, films}: FilmsProps): JSX.Element {
   return (
     <BrowserRouter>
-      <ScrollToTop>
-        <ResetFilmsCount />
+      <Container>
         <Routes>
           <Route
             path={AppRoutes.Main}
@@ -51,7 +49,7 @@ function App({promo, films}: FilmsProps): JSX.Element {
             element={<NotFoundPage />}
           />
         </Routes>
-      </ScrollToTop>
+      </Container>
     </BrowserRouter>
   );
 }

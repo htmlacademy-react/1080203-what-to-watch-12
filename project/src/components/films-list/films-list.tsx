@@ -2,11 +2,16 @@ import { FilmsListProps } from '../../types/film-list-props-type';
 import FilmCard from '../film-card/film-card';
 import { MORE_LIKE_THIS_MAX_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
+import Loading from '../loading/loading';
 
 function FilmsList({films, isMoreLikeThis, isMyList}: FilmsListProps): JSX.Element {
   const stateMaxToShow = useAppSelector((state) => state.maxToShow);
   const maxToShow = isMyList ? films.length : stateMaxToShow;
   const filmsToShow = films.slice(0, isMoreLikeThis ? MORE_LIKE_THIS_MAX_COUNT : maxToShow);
+
+  if (!films.length) {
+    return <Loading />;
+  }
 
   return (
     <div className="catalog__films-list">

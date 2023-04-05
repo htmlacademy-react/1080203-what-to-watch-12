@@ -1,7 +1,6 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoutes, GENRES } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { mockFilms } from '../../mocks/films';
 import { changeGenre } from '../../store/actions';
 import { useAppSelector } from '../../hooks';
 import cn from 'classnames';
@@ -9,11 +8,12 @@ import cn from 'classnames';
 function GenresList(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentGenre = useAppSelector((state) => state.genre);
+  const currentFilms = useAppSelector((state) => state.sourceFilms);
 
   const getGenresList = (): string[] => {
     const genresSet = new Set<string>();
 
-    mockFilms.map((film) => genresSet.add(film.genre));
+    currentFilms.map((film) => genresSet.add(film.genre));
 
     const genresList: string[] = [''];
 

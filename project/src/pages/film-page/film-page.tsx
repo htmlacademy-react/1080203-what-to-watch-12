@@ -7,12 +7,13 @@ import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import { getFilmById } from '../../utils';
 import FilmsList from '../../components/films-list/films-list';
-import { mockFilms } from '../../mocks/films';
 import FilmTabs from '../../components/film-tabs/film-tabs';
+import { useAppSelector } from '../../hooks';
 
 function FilmPage(): JSX.Element {
   const { id } = useParams();
-  const currentFilm = getFilmById(id);
+  const currentFilms = useAppSelector((state) => state.sourceFilms);
+  const currentFilm = getFilmById(id, currentFilms);
 
   return (
     <>
@@ -66,7 +67,7 @@ function FilmPage(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={mockFilms} isMoreLikeThis />
+          <FilmsList films={currentFilms} isMoreLikeThis />
         </section>
 
         <Footer />

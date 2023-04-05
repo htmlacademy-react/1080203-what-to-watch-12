@@ -16,7 +16,7 @@ import { SYMBOLS } from '../../const';
 
 function MainPage({ promo }: { promo: Film }): JSX.Element {
   const dispatch = useAppDispatch();
-  const filteredFilms = useAppSelector((state) => state.films);
+  const filteredFilms = useAppSelector((state) => state.filteredFilms);
   const currentGenre = useAppSelector((state) => state.genre);
   const location = useLocation();
 

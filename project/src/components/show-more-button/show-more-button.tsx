@@ -3,7 +3,7 @@ import { showMoreFilms } from '../../store/actions';
 
 function ShowMoreButton(): JSX.Element | null {
   const maxToShow = useAppSelector((state) => state.maxToShow);
-  const filmsCount = useAppSelector((state) => state.films.length);
+  const filmsCount = useAppSelector((state) => state.filteredFilms.length);
   const dispatch = useAppDispatch();
 
   const showMoreButton = (

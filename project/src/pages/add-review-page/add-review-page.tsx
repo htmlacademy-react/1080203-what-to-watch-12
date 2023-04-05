@@ -4,10 +4,12 @@ import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import { AppRoutes } from '../../const';
 import { getFilmById } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 function AddReviewPage(): JSX.Element {
   const { id } = useParams();
-  const currentFilm = getFilmById(id);
+  const currentFilms = useAppSelector((state) => state.sourceFilms);
+  const currentFilm = getFilmById(id, currentFilms);
 
   return (
     <section className="film-card film-card--full">

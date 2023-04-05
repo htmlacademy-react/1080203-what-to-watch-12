@@ -6,13 +6,20 @@ enum AppRoutes {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  Tabs = '/films/:id/:tabhash'
+  Tabs = '/films/:id/:tabhash',
+  Login = '/login',
+  Logout = '/logout' // todo Проверить, нужны ли роуты логин логаут
 }
 
 enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
+}
+
+enum APIRoutes {
+  Films = '/films',
+  Login = '/login'
 }
 
 const PREVIEW_VIDEO_DELAY = 1000;
@@ -78,9 +85,12 @@ const GENRES = {
 
 const FILMS_COUNT_STEP = 8;
 
+const TIMEOUT_SHOW_ERROR = 2000;
+
 export {
   AppRoutes,
   AuthStatus,
+  APIRoutes,
   FILM_LEVELS,
   SYMBOLS,
   FILM_RATING,
@@ -89,5 +99,6 @@ export {
   DATE_FORMATS,
   MORE_LIKE_THIS_MAX_COUNT,
   GENRES,
-  FILMS_COUNT_STEP
+  FILMS_COUNT_STEP,
+  TIMEOUT_SHOW_ERROR
 };

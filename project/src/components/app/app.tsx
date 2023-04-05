@@ -11,7 +11,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { FilmsProps } from '../../types/films-props-type';
 import Container from '../container/container';
 
-function App({promo, films}: FilmsProps): JSX.Element {
+function App({promo}: FilmsProps): JSX.Element {
   return (
     <BrowserRouter>
       <Container>
@@ -28,7 +28,7 @@ function App({promo, films}: FilmsProps): JSX.Element {
             path={AppRoutes.MyList}
             element={
               <PrivateRoute authStatus={AuthStatus.Auth}>
-                <MyListPage films={films} />
+                <MyListPage />
               </PrivateRoute>
             }
           />

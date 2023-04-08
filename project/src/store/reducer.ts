@@ -1,15 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, showMoreFilms, resetFilmsCount, getFilms, requireAuthorization, setError } from './actions';
 import { FilterFilmsByGenreType } from '../types/filter-films-by-genre-type';
 import { GENRES, FILMS_COUNT_STEP, AuthStatus } from '../const';
 import { InitialState } from '../types/initial-state-type';
+import { dropToken } from '../services/token';
+import {
+  changeGenre,
+  showMoreFilms,
+  resetFilmsCount,
+  getFilms,
+  requireAuthorization,
+  setError,
+  logout
+} from './actions';
 
 const initialState: InitialState = {
   genre: GENRES.ALL.NAME,
   sourceFilms: [],
   filteredFilms: [],
   maxToShow: FILMS_COUNT_STEP,
-  authorizationStatus: AuthStatus.Auth,
+  authorizationStatus: AuthStatus.Unknown,
   error: null
 };
 
@@ -42,6 +51,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(logout, (state) => {
+      dropToken();
+      state.authorizationStatus = AuthStatus.NoAuth;
     });
 });
 

@@ -1,8 +1,9 @@
-import { Film, Films } from './types/film-type';
+import { Film } from './types/film-type';
+import { GetFilmByIdType } from './types/get-film-by-id-type';
 import { SYMBOLS } from './const';
 
-function getFilmById(filmId: string|undefined, films: Films): Film|undefined {
-  return films.find((film) => filmId !== undefined ? film.id === +filmId : undefined);
+function getFilmById({ films, filmId }: GetFilmByIdType): Film|undefined {
+  return films.find((film) => filmId ? film.id === +filmId : undefined);
 }
 
 function convertMinutesToHouersAndMinutes(minutes: number | undefined) {

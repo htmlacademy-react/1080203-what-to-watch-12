@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoutes, AuthStatus } from '../../const';
+import { AppRoutes } from '../../const';
 import PrivateRoute from '../private-rout/private-rout';
 import MainPage from '../../pages/main-page/main-page';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
@@ -27,7 +27,7 @@ function App({promo}: FilmsProps): JSX.Element {
           <Route
             path={AppRoutes.MyList}
             element={
-              <PrivateRoute authStatus={AuthStatus.Auth}>
+              <PrivateRoute>
                 <MyListPage />
               </PrivateRoute>
             }

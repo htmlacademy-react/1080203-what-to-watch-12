@@ -7,8 +7,7 @@ enum AppRoutes {
   AddReview = '/films/:id/review',
   Player = '/player/:id',
   Tabs = '/films/:id/:tabhash',
-  Login = '/login',
-  Logout = '/logout' // todo Проверить, нужны ли роуты логин логаут
+  Login = '/login'
 }
 
 enum AuthStatus {
@@ -87,6 +86,8 @@ const FILMS_COUNT_STEP = 8;
 
 const TIMEOUT_SHOW_ERROR = 2000;
 
+const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+
 export {
   AppRoutes,
   AuthStatus,
@@ -100,5 +101,6 @@ export {
   MORE_LIKE_THIS_MAX_COUNT,
   GENRES,
   FILMS_COUNT_STEP,
-  TIMEOUT_SHOW_ERROR
+  TIMEOUT_SHOW_ERROR,
+  AUTH_TOKEN_KEY_NAME
 };

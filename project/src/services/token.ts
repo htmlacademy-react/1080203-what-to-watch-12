@@ -1,10 +1,10 @@
-const AUTH_TOKEN_KEY_NAME = 'wtw-token'; // todo Вынести в константу
-
-export type Token = string; // todo Вынести в типы
+import { AUTH_TOKEN_KEY_NAME } from '../const';
+import { Token } from '../types/token-type';
+import { SYMBOLS } from '../const';
 
 export const getToken = (): Token => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
-  return token ?? ''; // todo Заменить на константу
+  return token ?? SYMBOLS.EMPTY;
 };
 
 export const saveToken = (token: Token): void => {

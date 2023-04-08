@@ -9,7 +9,7 @@ import { useAppSelector } from '../../hooks';
 function AddReviewPage(): JSX.Element {
   const { id } = useParams();
   const currentFilms = useAppSelector((state) => state.sourceFilms);
-  const currentFilm = getFilmById(id, currentFilms);
+  const currentFilm = getFilmById({ filmId: id, films: currentFilms });
 
   return (
     <section className="film-card film-card--full">

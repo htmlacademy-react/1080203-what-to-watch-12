@@ -1,14 +1,34 @@
 import { MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppRoutes } from '../../const';
+import { useNavigate, Link } from 'react-router-dom';
+import { AppRoutes, AuthStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { store } from '../../store';
+import { logout } from '../../store/actions';
 
 function UserBlock(): JSX.Element {
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const navigate = useNavigate();
 
   const clickSignOutHandler = (e: MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
-    // do sign out
+
+    store.dispatch(logout());
   };
+
+  if (authStatus !== AuthStatus.Auth) {
+    return (
+      <ul className="user-block">
+        <li className="user-block__item">
+          <Link
+            to={AppRoutes.SignIn}
+            className="user-block__link"
+          >
+            Sign in
+          </Link>
+        </li>
+      </ul>
+    );
+  }
 
   return (
     <ul className="user-block">

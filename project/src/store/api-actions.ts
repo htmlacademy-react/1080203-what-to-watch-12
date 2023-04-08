@@ -1,4 +1,4 @@
-import {AxiosInstance} from 'axios';
+import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { InitialState } from '../types/initial-state-type';
 import { AppDispatch } from '../types/state-type';
@@ -9,11 +9,9 @@ import { store } from './';
 import { TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthStatus } from '../const';
 import { requireAuthorization } from './actions';
-
-// todo Удалить ненужное
-// import {saveToken, dropToken} from '../services/token';
-// import {AuthData} from '../types/auth-data';
-// import {UserData} from '../types/user-data';
+import { AuthData } from '../types/auth-data-type';
+import { UserData } from '../types/user-data-type';
+import { saveToken } from '../services/token';
 
 export const fetchGetFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -23,10 +21,10 @@ export const fetchGetFilmsAction = createAsyncThunk<void, undefined, {
 >
 (
   'getFilms',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<Films>(APIRoutes.Films);
     dispatch(getFilms(data));
-  },
+  }
 );
 
 export const clearErrorAction = createAsyncThunk(
@@ -36,7 +34,7 @@ export const clearErrorAction = createAsyncThunk(
       () => store.dispatch(setError(null)),
       TIMEOUT_SHOW_ERROR,
     );
-  },
+  }
 );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
@@ -46,13 +44,31 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 }
 >
 (
-  'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
+  'checkAuth',
+  async (_arg, { dispatch, extra: api }) => {
     try {
       await api.get(APIRoutes.Login);
+
       dispatch(requireAuthorization(AuthStatus.Auth));
-    } catch {
+    } catch(err) {
       dispatch(requireAuthorization(AuthStatus.NoAuth));
     }
-  },
+  }
+);
+
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch;
+  state: InitialState;
+  extra: AxiosInstance;
+}
+>
+(
+  'login',
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(APIRoutes.Login, { email, password });
+
+    saveToken(token);
+
+    dispatch(requireAuthorization(AuthStatus.Auth));
+  }
 );

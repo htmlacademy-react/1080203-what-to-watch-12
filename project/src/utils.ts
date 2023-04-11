@@ -1,4 +1,4 @@
-import { Film } from './types/film-type';
+import { Film } from './types/films-type';
 import { GetFilmByIdType } from './types/get-film-by-id-type';
 import { SYMBOLS } from './const';
 

@@ -1,9 +1,9 @@
-import { Film } from '../../types/film-type';
+import { Film } from '../../types/films-type';
 import { SYMBOLS } from '../../const';
 import { convertMinutesToHouersAndMinutes } from '../../utils';
 import React from 'react';
 
-function FilmTabDetails({ currentFilm }: { currentFilm: Film | undefined}): JSX.Element {
+function FilmTabDetails({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   let key = 0;
 
   const getStarringList = () => {

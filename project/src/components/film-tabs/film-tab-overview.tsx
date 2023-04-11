@@ -1,8 +1,8 @@
-import { Film } from '../../types/film-type';
+import { Film } from '../../types/films-type';
 import { useMemo } from 'react';
 import { FILM_LEVELS, SYMBOLS } from '../../const';
 
-function FilmTabOverview({ currentFilm }: { currentFilm: Film | undefined}): JSX.Element {
+function FilmTabOverview({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   const getLevelByRating = (filmRating: number | undefined) => {
     let currentLevel = '';
     const rating = filmRating === undefined ? 0 : filmRating;

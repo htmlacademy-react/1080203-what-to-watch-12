@@ -1,13 +1,13 @@
 import { Link, generatePath, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../const';
-import { Film } from '../../types/film-type';
+import { Film } from '../../types/films-type';
 import cn from 'classnames';
 import FilmTabOverview from './film-tab-overview';
 import FilmTabDetails from './film-tab-details';
 import FilmTabReviews from './film-tab-reviews';
 import { FILM_TAB_HASHES } from '../../const';
 
-function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | undefined }): JSX.Element {
+function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | null }): JSX.Element {
   const location = useLocation();
 
   const getCurrentTabComponent = () => {

@@ -5,15 +5,37 @@ import UserBlock from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
-import { getFilmById } from '../../utils';
+// import { getFilmById } from '../../utils'; todo Проверить, нужна ли функция и удалить везде
 import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import Loading from '../../components/loading/loading';
+import { getFilmByIdAction, getSimilarFilmsdAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { resetIsSingleFilmLoading } from '../../store/actions';
 
 function FilmPage(): JSX.Element {
+  // Запросить комментарии
+
+  // todo Навести порядок
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const currentFilms = useAppSelector((state) => state.sourceFilms);
-  const currentFilm = getFilmById({ filmId: id, films: currentFilms });
+  const currentFilm = useAppSelector((state) => state.singleFilm);
+  const isSingleFilmLoading = useAppSelector((state) => state.isSingleFilmLoading);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+
+  useEffect(() => {
+    dispatch(resetIsSingleFilmLoading());
+
+    if (id) {
+      dispatch(getFilmByIdAction(id));
+      dispatch(getSimilarFilmsdAction(id));
+    }
+  }, [id, dispatch]);
+
+  if (isSingleFilmLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -40,7 +62,7 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton id={id ?? ''} />
+                <PlayButton id={id ?? ''} /> {/* todo Заменить на константу везде в проекте */}
 
                 <MyListButton />
 
@@ -67,7 +89,7 @@ function FilmPage(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={currentFilms} isMoreLikeThis />
+          <FilmsList films={similarFilms} isMoreLikeThis />
         </section>
 
         <Footer />

@@ -10,13 +10,25 @@ import {
   getFilms,
   requireAuthorization,
   setError,
-  logout
+  logout,
+  getSingleFilm,
+  resetIsSingleFilmLoading,
+  getSimilarFilms,
+  getPromoFilm,
+  getFilmComments,
+  resetIsCommentsLoading
 } from './actions';
 
 const initialState: InitialState = {
   genre: GENRES.ALL.NAME,
   sourceFilms: [],
+  promoFilm: null,
   filteredFilms: [],
+  singleFilm: null,
+  isSingleFilmLoading: true,
+  similarFilms: [],
+  comments: null,
+  isCommentsLoading: true,
   maxToShow: FILMS_COUNT_STEP,
   authorizationStatus: AuthStatus.Unknown,
   error: null
@@ -55,6 +67,28 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(logout, (state) => {
       dropToken();
       state.authorizationStatus = AuthStatus.NoAuth;
+    })
+    .addCase(getSingleFilm, (state, action) => {
+      if (action.payload) {
+        state.singleFilm = action.payload;
+        state.isSingleFilmLoading = false;
+      }
+    })
+    .addCase(resetIsSingleFilmLoading, (state) => {
+      state.isSingleFilmLoading = true;
+    })
+    .addCase(getSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
+    })
+    .addCase(getPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+    })
+    .addCase(getFilmComments, (state, action) => {
+      state.comments = action.payload;
+      state.isCommentsLoading = false;
+    })
+    .addCase(resetIsCommentsLoading, (state) => {
+      state.isCommentsLoading = true;
     });
 });
 

@@ -7,7 +7,8 @@ enum AppRoutes {
   AddReview = '/films/:id/review',
   Player = '/player/:id',
   Tabs = '/films/:id/:tabhash',
-  Login = '/login'
+  Login = '/login',
+  NotFound = '/404'
 }
 
 enum AuthStatus {
@@ -18,7 +19,11 @@ enum AuthStatus {
 
 enum APIRoutes {
   Films = '/films',
-  Login = '/login'
+  Login = '/login',
+  Film = '/films/:id',
+  Similar = '/films/:id/similar',
+  Promo = '/promo',
+  Comments = '/comments/:id'
 }
 
 const PREVIEW_VIDEO_DELAY = 1000;

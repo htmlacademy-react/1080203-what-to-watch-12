@@ -39,7 +39,11 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoutes.AddReview}
-            element={<AddReviewPage />}
+            element={
+              <PrivateRoute>
+                <AddReviewPage />
+              </PrivateRoute>
+            }
           />
           <Route
             path={AppRoutes.Player}

@@ -1,10 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
 import { FilmNewReview } from '../../types/film-new-review-type';
 import { FILM_RATING } from '../../const';
+// import { useAppDispatch } from '../../hooks';
 
 function AddReview(): JSX.Element {
+  // const dispatch = useAppDispatch();
   const startState: FilmNewReview = { rating: '0', review: '' };
   const [reviewState, setReviewState] = useState(startState);
+
+  const isSubmitDisabled = () => {
+    const isRatingValid = reviewState.rating === '0'; // todo Заменить на константу
+    const isReviewValid = reviewState.review.length < 50 || reviewState.review.length > 400;
+
+    return isRatingValid || isReviewValid;
+  };
 
   const changeRatingHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setReviewState({
@@ -56,7 +65,13 @@ function AddReview(): JSX.Element {
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button
+              className="add-review__btn"
+              type="submit"
+              disabled={isSubmitDisabled()}
+            >
+              Post
+            </button>
           </div>
         </div>
       </form>

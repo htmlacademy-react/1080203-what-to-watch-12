@@ -1,5 +1,4 @@
-import { useParams, generatePath, Link } from 'react-router-dom';
-import { AppRoutes } from '../../const';
+import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
@@ -13,6 +12,7 @@ import Loading from '../../components/loading/loading';
 import { getFilmByIdAction, getSimilarFilmsdAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { resetIsSingleFilmLoading } from '../../store/actions';
+import AddReviewButton from '../../components/add-review-button/add-review-button';
 
 function FilmPage(): JSX.Element {
   // Запросить комментарии
@@ -66,7 +66,7 @@ function FilmPage(): JSX.Element {
 
                 <MyListButton />
 
-                <Link to={generatePath(AppRoutes.AddReview, { id: id ?? ''})} className="btn film-card__button">Add review</Link>
+                <AddReviewButton id={id} />
               </div>
             </div>
           </div>

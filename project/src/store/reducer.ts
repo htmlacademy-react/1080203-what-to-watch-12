@@ -16,7 +16,9 @@ import {
   getSimilarFilms,
   getPromoFilm,
   getFilmComments,
-  resetIsCommentsLoading
+  resetIsCommentsLoading,
+  sendReview,
+  getMyListFilms
 } from './actions';
 
 const initialState: InitialState = {
@@ -31,7 +33,8 @@ const initialState: InitialState = {
   isCommentsLoading: true,
   maxToShow: FILMS_COUNT_STEP,
   authorizationStatus: AuthStatus.Unknown,
-  error: null
+  error: null,
+  myListFilms: []
 };
 
 const filterFilmsByGenre = ({ films, genre }: FilterFilmsByGenreType) => films.filter((film) => genre ? film.genre === genre : film);
@@ -67,6 +70,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(logout, (state) => {
       dropToken();
       state.authorizationStatus = AuthStatus.NoAuth;
+      state.myListFilms = [];
     })
     .addCase(getSingleFilm, (state, action) => {
       if (action.payload) {
@@ -89,6 +93,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetIsCommentsLoading, (state) => {
       state.isCommentsLoading = true;
+    })
+    .addCase(sendReview, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(getMyListFilms, (state, action) => {
+      state.myListFilms = action.payload;
     });
 });
 

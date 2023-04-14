@@ -1,32 +1,43 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { FilmNewReview } from '../../types/film-new-review-type';
-import { FILM_RATING } from '../../const';
-// import { useAppDispatch } from '../../hooks';
+import { FILM_RATING, NOT_VALID_RATING, REVIEW_LENGTH, SYMBOLS } from '../../const';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { sendReviewAction } from '../../store/api-actions';
 
 function AddReview(): JSX.Element {
-  // const dispatch = useAppDispatch();
-  const startState: FilmNewReview = { rating: '0', review: '' };
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const startState: FilmNewReview = { id, rating: NOT_VALID_RATING, comment: SYMBOLS.EMPTY };
   const [reviewState, setReviewState] = useState(startState);
 
   const isSubmitDisabled = () => {
-    const isRatingValid = reviewState.rating === '0'; // todo Заменить на константу
-    const isReviewValid = reviewState.review.length < 50 || reviewState.review.length > 400;
+    const isRatingValid = reviewState.rating === NOT_VALID_RATING;
+    const isReviewValid = reviewState.comment.length < REVIEW_LENGTH.MIN || reviewState.comment.length > REVIEW_LENGTH.MAX;
 
     return isRatingValid || isReviewValid;
   };
 
   const changeRatingHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setReviewState({
+      id,
       rating: e.target.value,
-      review: reviewState.review
+      comment: reviewState.comment
     });
   };
 
   const changeReviewHandler = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setReviewState({
+      id,
       rating: reviewState.rating,
-      review: e.target.value
+      comment: e.target.value
     });
+  };
+
+  const sendReviewHandler = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+
+    dispatch(sendReviewAction(reviewState));
   };
 
   return (
@@ -69,6 +80,7 @@ function AddReview(): JSX.Element {
               className="add-review__btn"
               type="submit"
               disabled={isSubmitDisabled()}
+              onClick={sendReviewHandler}
             >
               Post
             </button>

@@ -6,15 +6,19 @@ type PrivateRouteProps = {
   children: JSX.Element;
 }
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+function PrivateRoute(props: PrivateRouteProps): JSX.Element | null {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const { children } = props;
 
-  return (
-    authStatus === AuthStatus.Auth
-      ? children
-      : <Navigate to={AppRoutes.SignIn} />
-  );
+  if (authStatus === AuthStatus.Auth) {
+    return children;
+  }
+
+  if (authStatus === AuthStatus.NoAuth) {
+    return <Navigate to={AppRoutes.SignIn} />;
+  }
+
+  return null;
 }
 
 export default PrivateRoute;

@@ -14,4 +14,5 @@ export type InitialState = {
   maxToShow: number;
   authorizationStatus: string;
   error: string | null;
+  myListFilms: Films;
 };

@@ -10,8 +10,8 @@ function convertMinutesToHouersAndMinutes(minutes: number | undefined) {
   const h = minutes !== undefined ? Math.floor(minutes / 60) : 0;
   const m = minutes !== undefined ? Math.floor(minutes % 60) : 0;
 
-  const hDisplay = h > 0 ? `${h}h` : '';
-  const mDisplay = m > 0 ? `${m}m` : '';
+  const hDisplay = h > 0 ? `${h}h` : SYMBOLS.EMPTY;
+  const mDisplay = m > 0 ? `${m}m` : SYMBOLS.EMPTY;
 
   return hDisplay + mDisplay;
 }

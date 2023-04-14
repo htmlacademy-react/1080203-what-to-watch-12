@@ -4,7 +4,6 @@ import UserBlock from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
-// import { getFilmById } from '../../utils'; todo Проверить, нужна ли функция и удалить везде
 import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import { useAppSelector, useAppDispatch } from '../../hooks';
@@ -13,11 +12,9 @@ import { getFilmByIdAction, getSimilarFilmsdAction } from '../../store/api-actio
 import { useEffect } from 'react';
 import { resetIsSingleFilmLoading } from '../../store/actions';
 import AddReviewButton from '../../components/add-review-button/add-review-button';
+import { SYMBOLS } from '../../const';
 
 function FilmPage(): JSX.Element {
-  // Запросить комментарии
-
-  // todo Навести порядок
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const currentFilm = useAppSelector((state) => state.singleFilm);
@@ -62,9 +59,9 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton id={id ?? ''} /> {/* todo Заменить на константу везде в проекте */}
+                <PlayButton id={id ?? SYMBOLS.EMPTY} />
 
-                <MyListButton />
+                <MyListButton filmId={id?.toString()} />
 
                 <AddReviewButton id={id} />
               </div>
@@ -79,7 +76,7 @@ function FilmPage(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <FilmTabs id={id ?? ''} currentFilm={currentFilm} />
+              <FilmTabs id={id ?? SYMBOLS.EMPTY} currentFilm={currentFilm} />
             </div>
           </div>
         </div>

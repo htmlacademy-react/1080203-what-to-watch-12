@@ -23,8 +23,15 @@ enum APIRoutes {
   Film = '/films/:id',
   Similar = '/films/:id/similar',
   Promo = '/promo',
-  Comments = '/comments/:id'
+  Comments = '/comments/:id',
+  Favorite = '/favorite',
+  AddToFavorite = '/favorite/:id/:status'
 }
+
+const MY_LIST_STATUSES = {
+  ADD: '1',
+  REMOVE: '0'
+};
 
 const PREVIEW_VIDEO_DELAY = 1000;
 
@@ -93,6 +100,18 @@ const TIMEOUT_SHOW_ERROR = 2000;
 
 const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 
+const NOT_VALID_RATING = '0';
+
+const REVIEW_LENGTH = {
+  MIN: 50,
+  MAX: 400
+};
+
+const MY_LIST_BUTTON_STATUSES = {
+  ADD: '#add',
+  IN_LIST: '#in-list'
+};
+
 export {
   AppRoutes,
   AuthStatus,
@@ -107,5 +126,9 @@ export {
   GENRES,
   FILMS_COUNT_STEP,
   TIMEOUT_SHOW_ERROR,
-  AUTH_TOKEN_KEY_NAME
+  AUTH_TOKEN_KEY_NAME,
+  MY_LIST_STATUSES,
+  NOT_VALID_RATING,
+  REVIEW_LENGTH,
+  MY_LIST_BUTTON_STATUSES
 };

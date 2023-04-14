@@ -4,7 +4,7 @@ import { FILM_LEVELS, SYMBOLS } from '../../const';
 
 function FilmTabOverview({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   const getLevelByRating = (filmRating: number | undefined) => {
-    let currentLevel = '';
+    let currentLevel = SYMBOLS.EMPTY;
     const rating = filmRating === undefined ? 0 : filmRating;
 
     switch (true) {

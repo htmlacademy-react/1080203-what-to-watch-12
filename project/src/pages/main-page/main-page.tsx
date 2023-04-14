@@ -62,7 +62,7 @@ function MainPage(): JSX.Element {
               <div className="film-card__buttons">
                 <PlayButton id={promoFilm.id.toString()} />
 
-                <MyListButton />
+                <MyListButton filmId={promoFilm.id.toString()} />
               </div>
             </div>
           </div>

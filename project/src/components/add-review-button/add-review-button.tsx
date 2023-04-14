@@ -1,5 +1,5 @@
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoutes, AuthStatus } from '../../const';
+import { AppRoutes, AuthStatus, SYMBOLS } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 function AddReviewButton({ id }: { id: string | undefined }): JSX.Element | null {
@@ -10,7 +10,7 @@ function AddReviewButton({ id }: { id: string | undefined }): JSX.Element | null
   }
 
   return (
-    <Link to={generatePath(AppRoutes.AddReview, { id: id ?? ''})} className="btn film-card__button">Add review</Link>
+    <Link to={generatePath(AppRoutes.AddReview, { id: id ?? SYMBOLS.EMPTY})} className="btn film-card__button">Add review</Link>
   );
 }
 

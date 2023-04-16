@@ -1,10 +1,10 @@
 import { FilmReviewType } from '../../types/film-reviews-type';
 import dayjs from 'dayjs';
-import { DATE_FORMATS } from '../../const';
+import { DateFormats } from '../../const';
 
 function FilmReview({ review }: { review: FilmReviewType }): JSX.Element {
-  const reviewDate = dayjs(review.date).format(DATE_FORMATS.REVIEW_DATE);
-  const dateTimeParam = dayjs(review.date).format(DATE_FORMATS.DATE_TIME_PARAM);
+  const reviewDate = dayjs(review.date).format(DateFormats.ReviewDate);
+  const dateTimeParam = dayjs(review.date).format(DateFormats.DateTimeParam);
 
   return (
     <div className="review">

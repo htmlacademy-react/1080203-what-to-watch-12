@@ -2,7 +2,7 @@ import { useParams, Link, generatePath } from 'react-router-dom';
 import AddReview from '../../components/add-review/add-review';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { AppRoutes, SYMBOLS } from '../../const';
+import { AppRoutes, Symbols } from '../../const';
 import { getFilmById } from '../../utils';
 import { useAppSelector } from '../../hooks';
 
@@ -26,10 +26,10 @@ function AddReviewPage(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={generatePath(AppRoutes.Film, { id: id ?? SYMBOLS.EMPTY})} className="breadcrumbs__link">{currentFilm?.name}</Link>
+                <Link to={generatePath(AppRoutes.Film, { id: id ?? Symbols.Empty})} className="breadcrumbs__link">{currentFilm?.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link to={generatePath(AppRoutes.AddReview, { id: id ?? SYMBOLS.EMPTY})} className="breadcrumbs__link">Add review</Link>
+                <Link to={generatePath(AppRoutes.AddReview, { id: id ?? Symbols.Empty})} className="breadcrumbs__link">Add review</Link>
               </li>
             </ul>
           </nav>

@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { InitialState } from '../types/initial-state-type';
 import { AppDispatch } from '../types/state-type';
 import { Films, Film } from '../types/films-type';
-import { APIRoutes, AppRoutes, FILM_TAB_HASHES } from '../const';
+import { APIRoutes, AppRoutes, FilmTabHashes } from '../const';
 import { store } from './';
 import { TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthStatus } from '../const';
@@ -21,7 +20,7 @@ import {
   getPromoFilm,
   getFilmComments,
   redirectToRoute,
-  sendReview,
+  sendComment,
   getMyListFilms
 } from './actions';
 import { Comments } from '../types/comments-type';
@@ -152,21 +151,21 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   }
 );
 
-export const sendReviewAction = createAsyncThunk<void, FilmNewReview, {
+export const sendCommentAction = createAsyncThunk<void, FilmNewReview, {
   dispatch: AppDispatch;
   state: InitialState;
   extra: AxiosInstance;
 }
 >
 (
-  'sendReviewAction',
+  'sendCommentAction',
   async ({ id, rating, comment }, { dispatch, extra: api }) => {
 
     if (id) {
       const { data } = await api.post<Comments>(generatePath(APIRoutes.Comments, { id }), { rating, comment });
 
-      dispatch(redirectToRoute(generatePath(AppRoutes.Tabs, { id, tabhash: FILM_TAB_HASHES.REVIEWS })));
-      dispatch(sendReview(data));
+      dispatch(redirectToRoute(generatePath(AppRoutes.Tabs, { id, tabhash: FilmTabHashes.Reviews })));
+      dispatch(sendComment(data));
     }
   }
 );

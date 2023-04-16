@@ -1,3 +1,11 @@
+const FILM_RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const PREVIEW_VIDEO_DELAY = 1000;
+const MORE_LIKE_THIS_MAX_COUNT = 4;
+const FILMS_COUNT_STEP = 8;
+const TIMEOUT_SHOW_ERROR = 2000;
+const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+const NOT_VALID_RATING = '0';
+
 enum AppRoutes {
   Main = '/',
   Genre = '/:genre',
@@ -28,12 +36,39 @@ enum APIRoutes {
   AddToFavorite = '/favorite/:id/:status'
 }
 
-const MY_LIST_STATUSES = {
-  ADD: '1',
-  REMOVE: '0'
-};
+enum MyListStatuses {
+  Add = '1',
+  Remove = '0'
+}
 
-const PREVIEW_VIDEO_DELAY = 1000;
+enum Symbols {
+  CommaAndSpace = ', ',
+  Comma = ',',
+  Empty = '',
+  Hash = '#',
+  Slash = '/'
+}
+
+enum FilmTabHashes {
+  Overview = '',
+  Details = '#details',
+  Reviews = '#reviews'
+}
+
+enum DateFormats {
+  ReviewDate = 'MMMM D, YYYY',
+  DateTimeParam = 'YYYY-MM-DD'
+}
+
+enum ReviewLength {
+  Min = 50,
+  Max = 400
+}
+
+enum MyListButtonStatuses {
+  Add = '#add',
+  InList = '#in-list'
+}
 
 const FILM_LEVELS = {
   BAD: {
@@ -63,29 +98,6 @@ const FILM_LEVELS = {
   }
 };
 
-const SYMBOLS = {
-  COMMA_AND_SPACE: ', ',
-  COMMA: ',',
-  EMPTY: '',
-  HASH: '#',
-  SLASH: '/'
-};
-
-const FILM_RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-
-const FILM_TAB_HASHES = {
-  OVERVIEW: '',
-  DETAILS: '#details',
-  REVIEWS: '#reviews'
-};
-
-const DATE_FORMATS = {
-  REVIEW_DATE: 'MMMM D, YYYY',
-  DATE_TIME_PARAM: 'YYYY-MM-DD'
-};
-
-const MORE_LIKE_THIS_MAX_COUNT = 4;
-
 const GENRES = {
   ALL: {
     HASH: '',
@@ -94,41 +106,23 @@ const GENRES = {
   }
 };
 
-const FILMS_COUNT_STEP = 8;
-
-const TIMEOUT_SHOW_ERROR = 2000;
-
-const AUTH_TOKEN_KEY_NAME = 'wtw-token';
-
-const NOT_VALID_RATING = '0';
-
-const REVIEW_LENGTH = {
-  MIN: 50,
-  MAX: 400
-};
-
-const MY_LIST_BUTTON_STATUSES = {
-  ADD: '#add',
-  IN_LIST: '#in-list'
-};
-
 export {
   AppRoutes,
   AuthStatus,
   APIRoutes,
+  Symbols,
+  FilmTabHashes,
+  DateFormats,
+  MyListStatuses,
+  ReviewLength,
+  MyListButtonStatuses,
   FILM_LEVELS,
-  SYMBOLS,
-  FILM_RATING,
+  FILM_RATINGS,
   PREVIEW_VIDEO_DELAY,
-  FILM_TAB_HASHES,
-  DATE_FORMATS,
   MORE_LIKE_THIS_MAX_COUNT,
   GENRES,
   FILMS_COUNT_STEP,
   TIMEOUT_SHOW_ERROR,
   AUTH_TOKEN_KEY_NAME,
-  MY_LIST_STATUSES,
-  NOT_VALID_RATING,
-  REVIEW_LENGTH,
-  MY_LIST_BUTTON_STATUSES
+  NOT_VALID_RATING
 };

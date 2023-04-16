@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 import { useAppDispatch } from '../../hooks';
 import { resetFilmsCount } from '../../store/actions';
 import { removeLastSlash } from '../../utils';
-import { SYMBOLS } from '../../const';
+import { Symbols } from '../../const';
 
 function Container({ children }: { children: React.ReactNode }): JSX.Element {
   // scroll to top
@@ -19,7 +19,7 @@ function Container({ children }: { children: React.ReactNode }): JSX.Element {
   const [resetStatus, setResetStatus] = useState<boolean>(false);
   const pathname = removeLastSlash(useLocation().pathname);
 
-  if (!currentPath && currentPath !== SYMBOLS.EMPTY) {
+  if (!currentPath && currentPath !== Symbols.Empty) {
     setCurrentPath(removeLastSlash(pathname));
   }
 

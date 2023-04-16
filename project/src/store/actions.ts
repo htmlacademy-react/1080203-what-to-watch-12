@@ -32,6 +32,6 @@ export const resetIsCommentsLoading = createAction('resetIsCommentsLoading');
 
 export const redirectToRoute = createAction<AppRoutes | string>('redirectToRoute');
 
-export const sendReview = createAction<Comments>('sendReview');
+export const sendComment = createAction<Comments>('sendComment');
 
 export const getMyListFilms = createAction<Films>('getMyListFilms');

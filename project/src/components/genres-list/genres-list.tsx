@@ -1,5 +1,5 @@
 import { Link, generatePath } from 'react-router-dom';
-import { AppRoutes, GENRES, SYMBOLS } from '../../const';
+import { AppRoutes, GENRES } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeGenre } from '../../store/actions';
 import { useAppSelector } from '../../hooks';
@@ -15,7 +15,7 @@ function GenresList(): JSX.Element {
 
     currentFilms.map((film) => genresSet.add(film.genre));
 
-    const genresList: string[] = [SYMBOLS.EMPTY];
+    const genresList: string[] = [GENRES.ALL.NAME];
 
     Array.from(genresSet).forEach((genre) => {
       genresList.push(genre);

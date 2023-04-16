@@ -12,7 +12,7 @@ import { getFilmByIdAction, getSimilarFilmsdAction } from '../../store/api-actio
 import { useEffect } from 'react';
 import { resetIsSingleFilmLoading } from '../../store/actions';
 import AddReviewButton from '../../components/add-review-button/add-review-button';
-import { SYMBOLS } from '../../const';
+import { Symbols } from '../../const';
 
 function FilmPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -59,7 +59,7 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton id={id ?? SYMBOLS.EMPTY} />
+                <PlayButton id={id ?? Symbols.Empty} />
 
                 <MyListButton filmId={id?.toString()} />
 
@@ -76,7 +76,7 @@ function FilmPage(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <FilmTabs id={id ?? SYMBOLS.EMPTY} currentFilm={currentFilm} />
+              <FilmTabs id={id ?? Symbols.Empty} currentFilm={currentFilm} />
             </div>
           </div>
         </div>

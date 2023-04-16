@@ -17,7 +17,7 @@ import {
   getPromoFilm,
   getFilmComments,
   resetIsCommentsLoading,
-  sendReview,
+  sendComment,
   getMyListFilms
 } from './actions';
 
@@ -94,7 +94,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(resetIsCommentsLoading, (state) => {
       state.isCommentsLoading = true;
     })
-    .addCase(sendReview, (state, action) => {
+    .addCase(sendComment, (state, action) => {
       state.comments = action.payload;
     })
     .addCase(getMyListFilms, (state, action) => {

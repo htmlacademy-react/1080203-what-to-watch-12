@@ -1,19 +1,19 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { FilmNewReview } from '../../types/film-new-review-type';
-import { FILM_RATING, NOT_VALID_RATING, REVIEW_LENGTH, SYMBOLS } from '../../const';
+import { FILM_RATINGS, NOT_VALID_RATING, ReviewLength, Symbols } from '../../const';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { sendReviewAction } from '../../store/api-actions';
+import { sendCommentAction } from '../../store/api-actions';
 
 function AddReview(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const startState: FilmNewReview = { id, rating: NOT_VALID_RATING, comment: SYMBOLS.EMPTY };
+  const startState: FilmNewReview = { id, rating: NOT_VALID_RATING, comment: Symbols.Empty };
   const [reviewState, setReviewState] = useState(startState);
 
   const isSubmitDisabled = () => {
     const isRatingValid = reviewState.rating === NOT_VALID_RATING;
-    const isReviewValid = reviewState.comment.length < REVIEW_LENGTH.MIN || reviewState.comment.length > REVIEW_LENGTH.MAX;
+    const isReviewValid = reviewState.comment.length < ReviewLength.Min || reviewState.comment.length > ReviewLength.Max;
 
     return isRatingValid || isReviewValid;
   };
@@ -34,10 +34,10 @@ function AddReview(): JSX.Element {
     });
   };
 
-  const sendReviewHandler = (e: MouseEvent<HTMLButtonElement>): void => {
+  const sendCommentHandler = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
-    dispatch(sendReviewAction(reviewState));
+    dispatch(sendCommentAction(reviewState));
   };
 
   return (
@@ -45,7 +45,7 @@ function AddReview(): JSX.Element {
       <form className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            {FILM_RATING.map((rating) => (
+            {FILM_RATINGS.map((rating) => (
               <React.Fragment key={rating}>
                 <input
                   className="rating__input"
@@ -80,7 +80,7 @@ function AddReview(): JSX.Element {
               className="add-review__btn"
               type="submit"
               disabled={isSubmitDisabled()}
-              onClick={sendReviewHandler}
+              onClick={sendCommentHandler}
             >
               Post
             </button>

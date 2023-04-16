@@ -1,10 +1,10 @@
 import { Film } from '../../types/films-type';
 import { useMemo } from 'react';
-import { FILM_LEVELS, SYMBOLS } from '../../const';
+import { FILM_LEVELS, Symbols } from '../../const';
 
 function FilmTabOverview({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   const getLevelByRating = (filmRating: number | undefined) => {
-    let currentLevel = SYMBOLS.EMPTY;
+    let currentLevel: string = Symbols.Empty;
     const rating = filmRating === undefined ? 0 : filmRating;
 
     switch (true) {
@@ -29,7 +29,7 @@ function FilmTabOverview({ currentFilm }: { currentFilm: Film | null}): JSX.Elem
   };
 
   const currentLevel: string = useMemo(() => getLevelByRating(currentFilm?.rating), [currentFilm?.rating]);
-  const starringList = useMemo(() => currentFilm?.starring.join(SYMBOLS.COMMA_AND_SPACE), [currentFilm?.starring]);
+  const starringList = useMemo(() => currentFilm?.starring.join(Symbols.CommaAndSpace), [currentFilm?.starring]);
 
   return (
     <>

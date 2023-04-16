@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changeGenre } from '../../store/actions';
 import { capitalizeFirstLetter } from '../../utils';
-import { SYMBOLS } from '../../const';
+import { Symbols } from '../../const';
 import Loading from '../../components/loading/loading';
 
 function MainPage(): JSX.Element {
@@ -21,7 +21,7 @@ function MainPage(): JSX.Element {
   const currentGenre = useAppSelector((state) => state.genre);
   const location = useLocation();
 
-  const getGenreByHash = (hash: string): string => capitalizeFirstLetter(hash.replace(SYMBOLS.HASH, SYMBOLS.EMPTY));
+  const getGenreByHash = (hash: string): string => capitalizeFirstLetter(hash.replace(Symbols.Hash, Symbols.Empty));
 
   if (location.hash && getGenreByHash(location.hash) !== currentGenre) {
     dispatch(changeGenre({ genre: getGenreByHash(location.hash) }));

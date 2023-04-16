@@ -1,19 +1,38 @@
-import { useParams, generatePath, Link } from 'react-router-dom';
-import { AppRoutes } from '../../const';
+import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
-import { getFilmById } from '../../utils';
 import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import Loading from '../../components/loading/loading';
+import { getFilmByIdAction, getSimilarFilmsdAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { resetIsSingleFilmLoading } from '../../store/actions';
+import AddReviewButton from '../../components/add-review-button/add-review-button';
+import { Symbols } from '../../const';
 
 function FilmPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const currentFilms = useAppSelector((state) => state.sourceFilms);
-  const currentFilm = getFilmById({ filmId: id, films: currentFilms });
+  const currentFilm = useAppSelector((state) => state.singleFilm);
+  const isSingleFilmLoading = useAppSelector((state) => state.isSingleFilmLoading);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+
+  useEffect(() => {
+    dispatch(resetIsSingleFilmLoading());
+
+    if (id) {
+      dispatch(getFilmByIdAction(id));
+      dispatch(getSimilarFilmsdAction(id));
+    }
+  }, [id, dispatch]);
+
+  if (isSingleFilmLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -40,11 +59,11 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton id={id ?? ''} />
+                <PlayButton id={id ?? Symbols.Empty} />
 
-                <MyListButton />
+                <MyListButton filmId={id?.toString()} />
 
-                <Link to={generatePath(AppRoutes.AddReview, { id: id ?? ''})} className="btn film-card__button">Add review</Link>
+                <AddReviewButton id={id} />
               </div>
             </div>
           </div>
@@ -57,7 +76,7 @@ function FilmPage(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <FilmTabs id={id ?? ''} currentFilm={currentFilm} />
+              <FilmTabs id={id ?? Symbols.Empty} currentFilm={currentFilm} />
             </div>
           </div>
         </div>
@@ -67,7 +86,7 @@ function FilmPage(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={currentFilms} isMoreLikeThis />
+          <FilmsList films={similarFilms} isMoreLikeThis />
         </section>
 
         <Footer />

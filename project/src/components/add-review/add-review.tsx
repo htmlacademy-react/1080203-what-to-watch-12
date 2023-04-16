@@ -1,23 +1,43 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { FilmNewReview } from '../../types/film-new-review-type';
-import { FILM_RATING } from '../../const';
+import { FILM_RATINGS, NOT_VALID_RATING, ReviewLength, Symbols } from '../../const';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { sendCommentAction } from '../../store/api-actions';
 
 function AddReview(): JSX.Element {
-  const startState: FilmNewReview = { rating: '0', review: '' };
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const startState: FilmNewReview = { id, rating: NOT_VALID_RATING, comment: Symbols.Empty };
   const [reviewState, setReviewState] = useState(startState);
+
+  const isSubmitDisabled = () => {
+    const isRatingValid = reviewState.rating === NOT_VALID_RATING;
+    const isReviewValid = reviewState.comment.length < ReviewLength.Min || reviewState.comment.length > ReviewLength.Max;
+
+    return isRatingValid || isReviewValid;
+  };
 
   const changeRatingHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setReviewState({
+      id,
       rating: e.target.value,
-      review: reviewState.review
+      comment: reviewState.comment
     });
   };
 
   const changeReviewHandler = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setReviewState({
+      id,
       rating: reviewState.rating,
-      review: e.target.value
+      comment: e.target.value
     });
+  };
+
+  const sendCommentHandler = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+
+    dispatch(sendCommentAction(reviewState));
   };
 
   return (
@@ -25,7 +45,7 @@ function AddReview(): JSX.Element {
       <form className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            {FILM_RATING.map((rating) => (
+            {FILM_RATINGS.map((rating) => (
               <React.Fragment key={rating}>
                 <input
                   className="rating__input"
@@ -56,7 +76,14 @@ function AddReview(): JSX.Element {
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button
+              className="add-review__btn"
+              type="submit"
+              disabled={isSubmitDisabled()}
+              onClick={sendCommentHandler}
+            >
+              Post
+            </button>
           </div>
         </div>
       </form>

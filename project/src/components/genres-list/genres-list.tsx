@@ -15,7 +15,7 @@ function GenresList(): JSX.Element {
 
     currentFilms.map((film) => genresSet.add(film.genre));
 
-    const genresList: string[] = [''];
+    const genresList: string[] = [GENRES.ALL.NAME];
 
     Array.from(genresSet).forEach((genre) => {
       genresList.push(genre);

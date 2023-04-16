@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import PrivateRoute from '../private-rout/private-rout';
 import MainPage from '../../pages/main-page/main-page';
@@ -8,17 +8,18 @@ import FilmPage from '../../pages/film-page/film-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import { FilmsProps } from '../../types/films-props-type';
 import Container from '../container/container';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
-function App({promo}: FilmsProps): JSX.Element {
+function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Container>
         <Routes>
           <Route
             path={AppRoutes.Main}
-            element={<MainPage promo={promo} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoutes.SignIn}
@@ -38,7 +39,11 @@ function App({promo}: FilmsProps): JSX.Element {
           />
           <Route
             path={AppRoutes.AddReview}
-            element={<AddReviewPage />}
+            element={
+              <PrivateRoute>
+                <AddReviewPage />
+              </PrivateRoute>
+            }
           />
           <Route
             path={AppRoutes.Player}
@@ -50,7 +55,7 @@ function App({promo}: FilmsProps): JSX.Element {
           />
         </Routes>
       </Container>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

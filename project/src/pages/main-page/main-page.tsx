@@ -6,31 +6,36 @@ import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import { Film } from '../../types/film-type';
 import { useAppSelector } from '../../hooks';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changeGenre } from '../../store/actions';
 import { capitalizeFirstLetter } from '../../utils';
-import { SYMBOLS } from '../../const';
+import { Symbols } from '../../const';
+import Loading from '../../components/loading/loading';
 
-function MainPage({ promo }: { promo: Film }): JSX.Element {
+function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const promoFilm = useAppSelector((state) => state.promoFilm);
   const filteredFilms = useAppSelector((state) => state.filteredFilms);
   const currentGenre = useAppSelector((state) => state.genre);
   const location = useLocation();
 
-  const getGenreByHash = (hash: string): string => capitalizeFirstLetter(hash.replace(SYMBOLS.HASH, SYMBOLS.EMPTY));
+  const getGenreByHash = (hash: string): string => capitalizeFirstLetter(hash.replace(Symbols.Hash, Symbols.Empty));
 
   if (location.hash && getGenreByHash(location.hash) !== currentGenre) {
     dispatch(changeGenre({ genre: getGenreByHash(location.hash) }));
+  }
+
+  if (!promoFilm) {
+    return <Loading />;
   }
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={promo.backgroundImage} alt={promo.name} />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -44,20 +49,20 @@ function MainPage({ promo }: { promo: Film }): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={promo.posterImage} alt={`${promo.name} poster`} width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promo.name}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promo.genre}</span>
-                <span className="film-card__year">{promo.released}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton id={promo.id.toString()} />
+                <PlayButton id={promoFilm.id.toString()} />
 
-                <MyListButton />
+                <MyListButton filmId={promoFilm.id.toString()} />
               </div>
             </div>
           </div>

@@ -1,14 +1,33 @@
-import { Film } from '../../types/film-type';
-import { mockReviews } from '../../mocks/reviews';
+import { Film } from '../../types/films-type';
 import FilmReview from './film-review';
 import { FilmReviewsType } from '../../types/film-reviews-type';
 import { isOdd } from '../../utils';
+import Loading from '../loading/loading';
+import { useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { getFilmCommentsdAction } from '../../store/api-actions';
+import { resetIsCommentsLoading } from '../../store/actions';
 
-function FilmTabReviews({ currentFilm }: { currentFilm: Film | undefined}): JSX.Element {
+function FilmTabReviews({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   const evenReviews: FilmReviewsType = [];
   const oddReviews: FilmReviewsType = [];
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector((state) => state.comments);
+  const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
 
-  mockReviews.forEach((review, i) => {
+  useEffect(() => {
+    dispatch(resetIsCommentsLoading());
+
+    if (currentFilm) {
+      dispatch(getFilmCommentsdAction(currentFilm.id.toString()));
+    }
+  }, [currentFilm, dispatch]);
+
+  if (isCommentsLoading) {
+    return <Loading />;
+  }
+
+  comments?.forEach((review, i) => {
     isOdd(i + 1) ? oddReviews.push(review) : evenReviews.push(review);
   });
 

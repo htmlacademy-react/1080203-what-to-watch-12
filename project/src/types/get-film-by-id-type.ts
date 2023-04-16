@@ -1,4 +1,4 @@
-import { Films } from './film-type';
+import { Films } from './films-type';
 
 export type GetFilmByIdType = {
   films: Films;

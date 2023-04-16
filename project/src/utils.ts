@@ -1,6 +1,6 @@
-import { Film } from './types/film-type';
+import { Film } from './types/films-type';
 import { GetFilmByIdType } from './types/get-film-by-id-type';
-import { SYMBOLS } from './const';
+import { Symbols } from './const';
 
 function getFilmById({ films, filmId }: GetFilmByIdType): Film|undefined {
   return films.find((film) => filmId ? film.id === +filmId : undefined);
@@ -10,8 +10,8 @@ function convertMinutesToHouersAndMinutes(minutes: number | undefined) {
   const h = minutes !== undefined ? Math.floor(minutes / 60) : 0;
   const m = minutes !== undefined ? Math.floor(minutes % 60) : 0;
 
-  const hDisplay = h > 0 ? `${h}h` : '';
-  const mDisplay = m > 0 ? `${m}m` : '';
+  const hDisplay = h > 0 ? `${h}h` : Symbols.Empty;
+  const mDisplay = m > 0 ? `${m}m` : Symbols.Empty;
 
   return hDisplay + mDisplay;
 }
@@ -25,7 +25,7 @@ function capitalizeFirstLetter(string: string): string {
 }
 
 function removeLastSlash(string: string | undefined) {
-  if (string && string.charAt(string.length - 1) === SYMBOLS.SLASH) {
+  if (string && string.charAt(string.length - 1) === Symbols.Slash) {
     string = string.slice(0, string.length - 1);
   }
 

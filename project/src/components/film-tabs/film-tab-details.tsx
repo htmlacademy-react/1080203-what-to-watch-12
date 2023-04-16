@@ -1,15 +1,15 @@
-import { Film } from '../../types/film-type';
-import { SYMBOLS } from '../../const';
+import { Film } from '../../types/films-type';
+import { Symbols } from '../../const';
 import { convertMinutesToHouersAndMinutes } from '../../utils';
 import React from 'react';
 
-function FilmTabDetails({ currentFilm }: { currentFilm: Film | undefined}): JSX.Element {
+function FilmTabDetails({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   let key = 0;
 
   const getStarringList = () => {
     const starringList: React.ReactNode[] | undefined = currentFilm?.starring.map((name, i): React.ReactNode => (
       <React.Fragment key={key++}>
-        {name}{currentFilm?.starring.length === i + 1 ? SYMBOLS.EMPTY : SYMBOLS.COMMA}<br/>
+        {name}{currentFilm?.starring.length === i + 1 ? Symbols.Empty : Symbols.Comma}<br/>
       </React.Fragment>
     ));
 

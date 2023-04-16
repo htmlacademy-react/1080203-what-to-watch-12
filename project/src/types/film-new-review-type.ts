@@ -1,6 +1,7 @@
 type FilmNewReview = {
+  id: string | undefined;
   rating: string;
-  review: string;
+  comment: string;
 };
 
 export type { FilmNewReview };

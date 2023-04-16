@@ -1,26 +1,26 @@
 import { Link, generatePath, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../const';
-import { Film } from '../../types/film-type';
+import { Film } from '../../types/films-type';
 import cn from 'classnames';
 import FilmTabOverview from './film-tab-overview';
 import FilmTabDetails from './film-tab-details';
 import FilmTabReviews from './film-tab-reviews';
-import { FILM_TAB_HASHES } from '../../const';
+import { FilmTabHashes } from '../../const';
 
-function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | undefined }): JSX.Element {
+function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | null }): JSX.Element {
   const location = useLocation();
 
   const getCurrentTabComponent = () => {
     let currentTabComponent;
 
     switch (location.hash) {
-      case FILM_TAB_HASHES.OVERVIEW:
+      case FilmTabHashes.Overview:
         currentTabComponent = <FilmTabOverview currentFilm={currentFilm} />;
         break;
-      case FILM_TAB_HASHES.DETAILS:
+      case FilmTabHashes.Details:
         currentTabComponent = <FilmTabDetails currentFilm={currentFilm} />;
         break;
-      case FILM_TAB_HASHES.REVIEWS:
+      case FilmTabHashes.Reviews:
         currentTabComponent = <FilmTabReviews currentFilm={currentFilm} />;
         break;
     }
@@ -35,7 +35,7 @@ function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | undefin
           <li
             className={cn(
               'film-nav__item',
-              {'film-nav__item--active': location.hash === FILM_TAB_HASHES.OVERVIEW}
+              {'film-nav__item--active': location.hash === FilmTabHashes.Overview}
             )}
           >
             <Link
@@ -48,11 +48,11 @@ function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | undefin
           <li
             className={cn(
               'film-nav__item',
-              {'film-nav__item--active': location.hash === FILM_TAB_HASHES.DETAILS}
+              {'film-nav__item--active': location.hash === FilmTabHashes.Details}
             )}
           >
             <Link
-              to={generatePath(AppRoutes.Tabs, { id: id, tabhash: FILM_TAB_HASHES.DETAILS })}
+              to={generatePath(AppRoutes.Tabs, { id: id, tabhash: FilmTabHashes.Details })}
               className="film-nav__link"
             >
               Details
@@ -61,11 +61,11 @@ function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | undefin
           <li
             className={cn(
               'film-nav__item',
-              {'film-nav__item--active': location.hash === FILM_TAB_HASHES.REVIEWS}
+              {'film-nav__item--active': location.hash === FilmTabHashes.Reviews}
             )}
           >
             <Link
-              to={generatePath(AppRoutes.Tabs, { id: id, tabhash: FILM_TAB_HASHES.REVIEWS })}
+              to={generatePath(AppRoutes.Tabs, { id: id, tabhash: FilmTabHashes.Reviews })}
               className="film-nav__link"
             >
               Reviews

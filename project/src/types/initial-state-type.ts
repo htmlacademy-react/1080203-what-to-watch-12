@@ -15,4 +15,5 @@ export type InitialState = {
   authorizationStatus: string;
   error: string | null;
   myListFilms: Films;
+  isMyListFilmsLoading: boolean;
 };

@@ -70,6 +70,10 @@ enum MyListButtonStatuses {
   InList = '#in-list'
 }
 
+enum Messages {
+  EmptyFilmList = 'Список фильмов пуст'
+}
+
 const FILM_LEVELS = {
   BAD: {
     NAME: 'Bad',
@@ -116,6 +120,7 @@ export {
   MyListStatuses,
   ReviewLength,
   MyListButtonStatuses,
+  Messages,
   FILM_LEVELS,
   FILM_RATINGS,
   PREVIEW_VIDEO_DELAY,

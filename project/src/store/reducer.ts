@@ -34,7 +34,8 @@ const initialState: InitialState = {
   maxToShow: FILMS_COUNT_STEP,
   authorizationStatus: AuthStatus.Unknown,
   error: null,
-  myListFilms: []
+  myListFilms: [],
+  isMyListFilmsLoading: true
 };
 
 const filterFilmsByGenre = ({ films, genre }: FilterFilmsByGenreType) => films.filter((film) => genre ? film.genre === genre : film);
@@ -99,6 +100,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getMyListFilms, (state, action) => {
       state.myListFilms = action.payload;
+      state.isMyListFilmsLoading = false;
     });
 });
 

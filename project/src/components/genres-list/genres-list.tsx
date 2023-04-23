@@ -1,16 +1,25 @@
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath, useLocation } from 'react-router-dom';
 import { AppRoutes, GENRES } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { changeGenre } from '../../store/actions';
+import { changeGenre } from '../../store/processes/films-process/films-process';
 import { useAppSelector } from '../../hooks';
 import cn from 'classnames';
+import { useEffect } from 'react';
+import { getCurrentGenre, getCurrentFilms } from '../../store/processes/films-process/films-selectors';
 
 function GenresList(): JSX.Element {
+  const location = useLocation();
   const dispatch = useAppDispatch();
-  const currentGenre = useAppSelector((state) => state.genre);
-  const currentFilms = useAppSelector((state) => state.sourceFilms);
+  const currentGenre = useAppSelector(getCurrentGenre);
+  const currentFilms = useAppSelector(getCurrentFilms);
 
-  const getGenresList = (): string[] => {
+  useEffect(() => {
+    if (!location.hash && currentGenre) {
+      dispatch(changeGenre(GENRES.ALL.HASH));
+    }
+  });
+
+  const getGenresList = () => {
     const genresSet = new Set<string>();
 
     currentFilms.map((film) => genresSet.add(film.genre));
@@ -40,7 +49,7 @@ function GenresList(): JSX.Element {
           <Link
             to={generatePath(AppRoutes.Genre, { genre: getHashByGenre(genre) })}
             className="catalog__genres-link"
-            onClick={() => dispatch(changeGenre({ genre }))}
+            onClick={() => dispatch(changeGenre(genre))}
           >
             {genre || GENRES.ALL.TITLE }
           </Link>

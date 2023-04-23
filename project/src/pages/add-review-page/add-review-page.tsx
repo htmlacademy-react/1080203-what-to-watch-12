@@ -5,10 +5,11 @@ import UserBlock from '../../components/user-block/user-block';
 import { AppRoutes, Symbols } from '../../const';
 import { getFilmById } from '../../utils';
 import { useAppSelector } from '../../hooks';
+import { getCurrentFilms } from '../../store/processes/films-process/films-selectors';
 
 function AddReviewPage(): JSX.Element {
   const { id } = useParams();
-  const currentFilms = useAppSelector((state) => state.sourceFilms);
+  const currentFilms = useAppSelector(getCurrentFilms);
   const currentFilm = getFilmById({ filmId: id, films: currentFilms });
 
   return (

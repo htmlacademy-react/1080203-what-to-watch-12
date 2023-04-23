@@ -7,7 +7,7 @@ import PreviewVideo from '../preview-video/preview-video';
 function FilmCard({previewImage, previewVideo, name, id}: FilmCardProps): JSX.Element {
   const [, setHoveredFilmCard] = useState<number|null>(null);
 
-  const onMouseEnter = (): void => {
+  const onMouseEnter = () => {
     setHoveredFilmCard(id);
   };
 

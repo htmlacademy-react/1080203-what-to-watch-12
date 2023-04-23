@@ -2,7 +2,6 @@ const FILM_RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 const PREVIEW_VIDEO_DELAY = 1000;
 const MORE_LIKE_THIS_MAX_COUNT = 4;
 const FILMS_COUNT_STEP = 8;
-const TIMEOUT_SHOW_ERROR = 2000;
 const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 const NOT_VALID_RATING = '0';
 
@@ -19,7 +18,7 @@ enum AppRoutes {
   NotFound = '/404'
 }
 
-enum AuthStatus {
+enum AuthStatuses {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
@@ -74,6 +73,12 @@ enum Messages {
   EmptyFilmList = 'Список фильмов пуст'
 }
 
+enum NameSpace {
+  User = 'user',
+  Films = 'films',
+  Comments = 'comments'
+}
+
 const FILM_LEVELS = {
   BAD: {
     NAME: 'Bad',
@@ -112,7 +117,7 @@ const GENRES = {
 
 export {
   AppRoutes,
-  AuthStatus,
+  AuthStatuses,
   APIRoutes,
   Symbols,
   FilmTabHashes,
@@ -121,13 +126,13 @@ export {
   ReviewLength,
   MyListButtonStatuses,
   Messages,
+  NameSpace,
   FILM_LEVELS,
   FILM_RATINGS,
   PREVIEW_VIDEO_DELAY,
   MORE_LIKE_THIS_MAX_COUNT,
   GENRES,
   FILMS_COUNT_STEP,
-  TIMEOUT_SHOW_ERROR,
   AUTH_TOKEN_KEY_NAME,
   NOT_VALID_RATING
 };

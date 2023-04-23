@@ -9,22 +9,23 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeGenre } from '../../store/actions';
+import { changeGenre } from '../../store/processes/films-process/films-process';
 import { capitalizeFirstLetter } from '../../utils';
 import { Symbols } from '../../const';
 import Loading from '../../components/loading/loading';
+import { getFilteredFilms, getCurrentGenre, getPromoFilm } from '../../store/processes/films-process/films-selectors';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const promoFilm = useAppSelector((state) => state.promoFilm);
-  const filteredFilms = useAppSelector((state) => state.filteredFilms);
-  const currentGenre = useAppSelector((state) => state.genre);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const filteredFilms = useAppSelector(getFilteredFilms);
+  const currentGenre = useAppSelector(getCurrentGenre);
   const location = useLocation();
 
   const getGenreByHash = (hash: string): string => capitalizeFirstLetter(hash.replace(Symbols.Hash, Symbols.Empty));
 
   if (location.hash && getGenreByHash(location.hash) !== currentGenre) {
-    dispatch(changeGenre({ genre: getGenreByHash(location.hash) }));
+    dispatch(changeGenre(getGenreByHash(location.hash)));
   }
 
   if (!promoFilm) {

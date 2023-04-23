@@ -1,19 +1,33 @@
 import { useNavigate } from 'react-router-dom';
-import { AppRoutes, AuthStatus, MyListStatuses, MyListButtonStatuses } from '../../const';
+import { AppRoutes, AuthStatuses, MyListStatuses, MyListButtonStatuses } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addFilmInMyListAction } from '../../store/api-actions';
+import { addFilmInMyListAction, getMyListFilmsAction } from '../../store/api-actions';
 import { MyListButtonProps } from '../../types/my-list-button-props-type';
+import { getMyListFilms } from '../../store/processes/films-process/films-selectors';
+import { getAuthorizationStatus } from '../../store/processes/user-process/user-selectors';
+import { resetMyListFilms } from '../../store/processes/films-process/films-process';
+import { useEffect } from 'react';
 
 function MyListButton({ filmId }: MyListButtonProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const myListFilms = useAppSelector((state) => state.myListFilms);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
+  const myListFilms = useAppSelector(getMyListFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isFilmInMyList = myListFilms.find((film) => film.id.toString() === filmId);
+  const isUserAuth = authorizationStatus === AuthStatuses.Auth;
+
+  useEffect(() => {
+    if (!isUserAuth && myListFilms.length) {
+      dispatch(resetMyListFilms());
+    }
+
+    if (authorizationStatus === AuthStatuses.Auth && !myListFilms.length) {
+      dispatch(getMyListFilmsAction());
+    }
+  }, [isUserAuth, authorizationStatus, dispatch, myListFilms.length]);
 
   const myListButtonClickHandler = () => {
-    if (authorizationStatus !== AuthStatus.Auth) {
+    if (authorizationStatus !== AuthStatuses.Auth) {
       navigate(AppRoutes.SignIn);
       return;
     }

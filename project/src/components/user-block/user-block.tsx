@@ -1,12 +1,13 @@
 import { MouseEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { AppRoutes, AuthStatus } from '../../const';
+import { AppRoutes, AuthStatuses } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { logout } from '../../store/actions';
+import { logout } from '../../store/processes/user-process/user-process';
+import { getAuthorizationStatus } from '../../store/processes/user-process/user-selectors';
 
 function UserBlock(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   const clickSignOutHandler = (e: MouseEvent<HTMLAnchorElement>): void => {
@@ -15,7 +16,7 @@ function UserBlock(): JSX.Element {
     store.dispatch(logout());
   };
 
-  if (authStatus !== AuthStatus.Auth) {
+  if (authStatus !== AuthStatuses.Auth) {
     return (
       <ul className="user-block">
         <li className="user-block__item">

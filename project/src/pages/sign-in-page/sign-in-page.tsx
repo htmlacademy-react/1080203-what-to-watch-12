@@ -4,13 +4,15 @@ import { useRef, FormEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData } from '../../types/auth-data-type';
 import { loginAction } from '../../store/api-actions';
-import { AuthStatus, AppRoutes } from '../../const';
+import { AuthStatuses, AppRoutes } from '../../const';
 import { useNavigate } from 'react-router-dom';
+import { getAuthorizationStatus } from '../../store/processes/user-process/user-selectors';
 
 function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAppSelector((state) => state.authorizationStatus === AuthStatus.Auth);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuth = authorizationStatus === AuthStatuses.Auth;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -29,14 +31,11 @@ function SignInPage(): JSX.Element {
     }
   };
 
-  // Вот тут совершенно не понимаю для чего нужен useEffect, без него в консоль падает ошибка
-  // while rendering a different component (`SignInPage`)
-  // To locate the bad setState() call inside `SignInPage`, follow the stack trace as described in...
   useEffect(() => {
     if (isAuth) {
       navigate(AppRoutes.Main);
     }
-  }, [isAuth, navigate]); // isAuth мне ещё понятно как оказался в массиве зависимостей, а navigate тут при чём?
+  }, [isAuth, navigate]);
 
   return (
     <div className="user-page">

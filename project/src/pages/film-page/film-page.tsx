@@ -8,25 +8,26 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Loading from '../../components/loading/loading';
-import { getFilmByIdAction, getSimilarFilmsdAction } from '../../store/api-actions';
+import { getSingleFilmAction, getSimilarFilmsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
-import { resetIsSingleFilmLoading } from '../../store/actions';
+import { resetIsSingleFilmLoading } from '../../store/processes/films-process/films-process';
 import AddReviewButton from '../../components/add-review-button/add-review-button';
 import { Symbols } from '../../const';
+import { getCurrentFilm, getSimilarFilms, getIsSingleFilmLoading } from '../../store/processes/films-process/films-selectors';
 
 function FilmPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const currentFilm = useAppSelector((state) => state.singleFilm);
-  const isSingleFilmLoading = useAppSelector((state) => state.isSingleFilmLoading);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const currentFilm = useAppSelector(getCurrentFilm);
+  const isSingleFilmLoading = useAppSelector(getIsSingleFilmLoading);
+  const similarFilms = useAppSelector(getSimilarFilms);
 
   useEffect(() => {
     dispatch(resetIsSingleFilmLoading());
 
     if (id) {
-      dispatch(getFilmByIdAction(id));
-      dispatch(getSimilarFilmsdAction(id));
+      dispatch(getSingleFilmAction(id));
+      dispatch(getSimilarFilmsAction(id));
     }
   }, [id, dispatch]);
 

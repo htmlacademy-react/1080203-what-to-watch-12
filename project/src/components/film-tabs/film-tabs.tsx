@@ -2,31 +2,11 @@ import { Link, generatePath, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import { Film } from '../../types/films-type';
 import cn from 'classnames';
-import FilmTabOverview from './film-tab-overview';
-import FilmTabDetails from './film-tab-details';
-import FilmTabReviews from './film-tab-reviews';
 import { FilmTabHashes } from '../../const';
+import FilmCurrentTab from './film-current-tab';
 
 function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | null }): JSX.Element {
   const location = useLocation();
-
-  const getCurrentTabComponent = () => {
-    let currentTabComponent;
-
-    switch (location.hash) {
-      case FilmTabHashes.Overview:
-        currentTabComponent = <FilmTabOverview currentFilm={currentFilm} />;
-        break;
-      case FilmTabHashes.Details:
-        currentTabComponent = <FilmTabDetails currentFilm={currentFilm} />;
-        break;
-      case FilmTabHashes.Reviews:
-        currentTabComponent = <FilmTabReviews currentFilm={currentFilm} />;
-        break;
-    }
-
-    return currentTabComponent;
-  };
 
   return (
     <>
@@ -74,7 +54,7 @@ function FilmTabs({ id, currentFilm }: { id: string; currentFilm: Film | null })
         </ul>
       </nav>
 
-      {getCurrentTabComponent()}
+      <FilmCurrentTab currentFilm={currentFilm}/>
     </>
   );
 }

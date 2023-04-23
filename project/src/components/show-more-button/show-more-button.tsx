@@ -1,9 +1,11 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { showMoreFilms } from '../../store/actions';
+import { showMoreFilms } from '../../store/processes/films-process/films-process';
+import { getMaxToShow } from '../../store/processes/films-process/films-selectors';
+import { getFilteredFilmsLength } from '../../store/processes/films-process/films-selectors';
 
 function ShowMoreButton(): JSX.Element | null {
-  const maxToShow = useAppSelector((state) => state.maxToShow);
-  const filmsCount = useAppSelector((state) => state.filteredFilms.length);
+  const maxToShow = useAppSelector(getMaxToShow);
+  const filmsCount = useAppSelector(getFilteredFilmsLength);
   const dispatch = useAppDispatch();
 
   const showMoreButton = (

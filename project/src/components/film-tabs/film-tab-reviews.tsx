@@ -6,14 +6,15 @@ import Loading from '../loading/loading';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getFilmCommentsdAction } from '../../store/api-actions';
-import { resetIsCommentsLoading } from '../../store/actions';
+import { resetIsCommentsLoading } from '../../store/processes/comments-process/comments-process';
+import { getComments, getIsCommentsLoading } from '../../store/processes/comments-process/comments-selectors';
 
 function FilmTabReviews({ currentFilm }: { currentFilm: Film | null}): JSX.Element {
   const evenReviews: FilmReviewsType = [];
   const oddReviews: FilmReviewsType = [];
   const dispatch = useAppDispatch();
-  const comments = useAppSelector((state) => state.comments);
-  const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
+  const comments = useAppSelector(getComments);
+  const isCommentsLoading = useAppSelector(getIsCommentsLoading);
 
   useEffect(() => {
     dispatch(resetIsCommentsLoading());

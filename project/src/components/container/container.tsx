@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { useAppDispatch } from '../../hooks';
-import { resetFilmsCount } from '../../store/actions';
+import { resetFilmsCount } from '../../store/processes/films-process/films-process';
 import { removeLastSlash } from '../../utils';
 import { Symbols } from '../../const';
 

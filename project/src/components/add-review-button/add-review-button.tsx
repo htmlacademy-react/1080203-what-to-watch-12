@@ -1,11 +1,12 @@
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoutes, AuthStatus, Symbols } from '../../const';
+import { AppRoutes, AuthStatuses, Symbols } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/processes/user-process/user-selectors';
 
 function AddReviewButton({ id }: { id: string | undefined }): JSX.Element | null {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (authorizationStatus !== AuthStatus.Auth) {
+  if (authorizationStatus !== AuthStatuses.Auth) {
     return null;
   }
 

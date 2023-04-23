@@ -1,9 +1,10 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { FilmNewReview } from '../../types/film-new-review-type';
-import { FILM_RATINGS, NOT_VALID_RATING, ReviewLength, Symbols } from '../../const';
+import { NOT_VALID_RATING, ReviewLength, Symbols } from '../../const';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { sendCommentAction } from '../../store/api-actions';
+import AddReviewStars from './add-review-stars';
 
 function AddReview(): JSX.Element {
   const { id } = useParams();
@@ -12,10 +13,10 @@ function AddReview(): JSX.Element {
   const [reviewState, setReviewState] = useState(startState);
 
   const isSubmitDisabled = () => {
-    const isRatingValid = reviewState.rating === NOT_VALID_RATING;
-    const isReviewValid = reviewState.comment.length < ReviewLength.Min || reviewState.comment.length > ReviewLength.Max;
+    const isRatingNotValid = reviewState.rating === NOT_VALID_RATING;
+    const isReviewNotValid = reviewState.comment.length < ReviewLength.Min || reviewState.comment.length > ReviewLength.Max;
 
-    return isRatingValid || isReviewValid;
+    return isRatingNotValid || isReviewNotValid;
   };
 
   const changeRatingHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -44,26 +45,7 @@ function AddReview(): JSX.Element {
     <div className="add-review">
       <form className="add-review__form">
         <div className="rating">
-          <div className="rating__stars">
-            {FILM_RATINGS.map((rating) => (
-              <React.Fragment key={rating}>
-                <input
-                  className="rating__input"
-                  id={`star-${rating}`}
-                  type="radio"
-                  name="rating"
-                  value={rating}
-                  onChange={changeRatingHandler}
-                />
-                <label
-                  className="rating__label"
-                  htmlFor={`star-${rating}`}
-                >
-                  Rating {rating}
-                </label>
-              </React.Fragment>
-            ))}
-          </div>
+          <AddReviewStars changeRatingHandler={changeRatingHandler} />
         </div>
 
         <div className="add-review__text">

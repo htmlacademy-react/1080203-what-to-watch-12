@@ -13,7 +13,9 @@ function FilmCard({previewImage, previewVideo, name, id}: FilmCardProps): JSX.El
 
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter}>
-      <PreviewVideo posterSrc={previewImage} previewSrc={previewVideo} />
+      <Link to={generatePath(AppRoutes.Film, { id: id.toString() })} className="small-film-card__link">
+        <PreviewVideo posterSrc={previewImage} previewSrc={previewVideo} />
+      </Link>
 
       <h3 className="small-film-card__title">
         <Link to={generatePath(AppRoutes.Film, { id: id.toString() })} className="small-film-card__link">{name}</Link>

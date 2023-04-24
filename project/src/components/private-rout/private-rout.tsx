@@ -8,14 +8,14 @@ type PrivateRouteProps = {
 }
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element | null {
-  const AuthStatus = useAppSelector(getAuthorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const { children } = props;
 
-  if (AuthStatus === AuthStatuses.Auth) {
+  if (authStatus === AuthStatuses.Auth) {
     return children;
   }
 
-  if (AuthStatus === AuthStatuses.NoAuth) {
+  if (authStatus === AuthStatuses.NoAuth) {
     return <Navigate to={AppRoutes.SignIn} />;
   }
 

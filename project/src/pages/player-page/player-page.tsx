@@ -60,6 +60,8 @@ function PlayerPage(): JSX.Element {
     }
   };
 
+  const playerExitButtonClickHandler = () => navigate(-1);
+
   return (
     <div className="player">
       <video
@@ -75,7 +77,7 @@ function PlayerPage(): JSX.Element {
       <button
         type="button"
         className="player__exit"
-        onClick={() => navigate(-1)}
+        onClick={playerExitButtonClickHandler}
       >
         Exit
       </button>

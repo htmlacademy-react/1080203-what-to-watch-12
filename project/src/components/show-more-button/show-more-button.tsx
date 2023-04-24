@@ -8,12 +8,14 @@ function ShowMoreButton(): JSX.Element | null {
   const filmsCount = useAppSelector(getFilteredFilmsLength);
   const dispatch = useAppDispatch();
 
+  const showMoreButtonClickHandler = () => dispatch(showMoreFilms());
+
   const showMoreButton = (
     <div className="catalog__more">
       <button
         className="catalog__button"
         type="button"
-        onClick={() => dispatch(showMoreFilms())}
+        onClick={showMoreButtonClickHandler}
       >
         Show more
       </button>

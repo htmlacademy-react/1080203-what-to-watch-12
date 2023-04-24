@@ -17,7 +17,7 @@ function GenresList(): JSX.Element {
     if (!location.hash && currentGenre) {
       dispatch(changeGenre(GENRES.ALL.HASH));
     }
-  });
+  }, [location.hash, currentGenre, dispatch]);
 
   const getGenresList = () => {
     const genresSet = new Set<string>();

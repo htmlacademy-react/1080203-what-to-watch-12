@@ -1,6 +1,11 @@
 import { Film } from './types/films-type';
 import { GetFilmByIdType } from './types/get-film-by-id-type';
-import { Symbols } from './const';
+import { Symbols, TimeInSeconds } from './const';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import { FilterFilmsByGenreType } from './types/filter-films-by-genre-type';
+
+dayjs.extend(duration);
 
 function getFilmById({ films, filmId }: GetFilmByIdType): Film|undefined {
   return films.find((film) => filmId ? film.id === +filmId : undefined);
@@ -32,10 +37,45 @@ function removeLastSlash(string: string | undefined) {
   return string;
 }
 
+function convertSecondsToTime(time: number | null) {
+  if (!time) {
+    time = 0;
+  }
+
+  let hours = 0;
+  let minutes = 0;
+  let seconds = 0;
+  let filmDuration = '';
+
+  switch (true) {
+    case (time >= TimeInSeconds.Hour):
+      hours = Math.trunc(time / TimeInSeconds.Hour);
+      minutes = Math.trunc((time - hours * TimeInSeconds.Hour) / TimeInSeconds.Minute);
+      seconds = time - (minutes * TimeInSeconds.Minute) - (hours * TimeInSeconds.Hour);
+
+      filmDuration = dayjs.duration({ seconds, minutes, hours }).format('HH:mm:ss');
+      break;
+    case (time < TimeInSeconds.Hour):
+      minutes = Math.trunc(time / TimeInSeconds.Minute);
+      seconds = time - (minutes * TimeInSeconds.Minute) - (hours * TimeInSeconds.Hour);
+
+      filmDuration = dayjs.duration({ seconds, minutes }).format('mm:ss');
+      break;
+  }
+
+  return filmDuration;
+}
+
+function filterFilmsByGenre({ films, genre }: FilterFilmsByGenreType) {
+  return films.filter((film) => genre ? film.genre === genre : film);
+}
+
 export {
   getFilmById,
   convertMinutesToHouersAndMinutes,
   isOdd,
   capitalizeFirstLetter,
-  removeLastSlash
+  removeLastSlash,
+  convertSecondsToTime,
+  filterFilmsByGenre
 };

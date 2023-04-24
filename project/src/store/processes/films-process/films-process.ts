@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace, GENRES, FILMS_COUNT_STEP } from '../../../const';
 import { FilmsProcess } from '../../../types/state-type';
-import { FilterFilmsByGenreType } from '../../../types/filter-films-by-genre-type';
+import { filterFilmsByGenre } from '../../../utils';
 import {
   getFilmsAction,
   getPromoFilmAction,
@@ -23,8 +23,6 @@ const initialState: FilmsProcess = {
   isMyListFilmsLoading: true,
   maxToShow: FILMS_COUNT_STEP
 };
-
-const filterFilmsByGenre = ({ films, genre }: FilterFilmsByGenreType) => films.filter((film) => genre ? film.genre === genre : film);
 
 export const filmsProcess = createSlice({
   name: NameSpace.Films,

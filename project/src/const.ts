@@ -79,6 +79,16 @@ enum NameSpace {
   Comments = 'comments'
 }
 
+enum TimeInSeconds {
+  Hour = 3600,
+  Minute = 60
+}
+
+enum PlayPauseButtonIcons {
+  Play = '#play-s',
+  Pause = '#pause'
+}
+
 const FILM_LEVELS = {
   BAD: {
     NAME: 'Bad',
@@ -127,6 +137,8 @@ export {
   MyListButtonStatuses,
   Messages,
   NameSpace,
+  TimeInSeconds,
+  PlayPauseButtonIcons,
   FILM_LEVELS,
   FILM_RATINGS,
   PREVIEW_VIDEO_DELAY,

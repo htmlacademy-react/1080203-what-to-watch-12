@@ -31,12 +31,14 @@ function UserBlock(): JSX.Element {
     );
   }
 
+  const userBlockAvatarClickHandler = () => navigate(AppRoutes.MyList);
+
   return (
     <ul className="user-block">
       <li className="user-block__item">
         <div
           className="user-block__avatar"
-          onClick={() => navigate(AppRoutes.MyList)}
+          onClick={userBlockAvatarClickHandler}
         >
           <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
         </div>

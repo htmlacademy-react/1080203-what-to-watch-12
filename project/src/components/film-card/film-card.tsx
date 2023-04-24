@@ -7,12 +7,12 @@ import PreviewVideo from '../preview-video/preview-video';
 function FilmCard({previewImage, previewVideo, name, id}: FilmCardProps): JSX.Element {
   const [, setHoveredFilmCard] = useState<number|null>(null);
 
-  const onMouseEnter = () => {
+  const filmCardMouseEnterHandler = () => {
     setHoveredFilmCard(id);
   };
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter}>
+    <article className="small-film-card catalog__films-card" onMouseEnter={filmCardMouseEnterHandler}>
       <Link to={generatePath(AppRoutes.Film, { id: id.toString() })} className="small-film-card__link">
         <PreviewVideo posterSrc={previewImage} previewSrc={previewVideo} />
       </Link>

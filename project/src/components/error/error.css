@@ -1,0 +1,9 @@
+.error {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  background-color: tomato;
+  padding: 30px 50px;
+  color: #333333;
+  border-radius: 10px;
+}

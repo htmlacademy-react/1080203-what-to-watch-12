@@ -1,6 +1,6 @@
 import { Film } from './types/films-type';
 import { GetFilmByIdType } from './types/get-film-by-id-type';
-import { Symbols, TimeInSeconds } from './const';
+import { CONTAINS_DIGIT_REGEXP, CONTAINS_LETTER_REGEXP, EMAIL_REGEXP, Symbols, TimeInSeconds } from './const';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { FilterFilmsByGenreType } from './types/filter-films-by-genre-type';
@@ -70,6 +70,22 @@ function filterFilmsByGenre({ films, genre }: FilterFilmsByGenreType) {
   return films.filter((film) => genre ? film.genre === genre : film);
 }
 
+function isEmail(email: string | undefined | null) {
+  if (!email) {
+    return;
+  }
+
+  return EMAIL_REGEXP.test(email.toLowerCase());
+}
+
+function isPassword(password: string | undefined | null) {
+  if (!password) {
+    return;
+  }
+
+  return (CONTAINS_DIGIT_REGEXP.test(password) && CONTAINS_LETTER_REGEXP.test(password));
+}
+
 export {
   getFilmById,
   convertMinutesToHouersAndMinutes,
@@ -77,5 +93,7 @@ export {
   capitalizeFirstLetter,
   removeLastSlash,
   convertSecondsToTime,
-  filterFilmsByGenre
+  filterFilmsByGenre,
+  isEmail,
+  isPassword
 };

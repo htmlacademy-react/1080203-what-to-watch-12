@@ -60,6 +60,9 @@ export const filmsProcess = createSlice({
         state.singleFilm = action.payload;
         state.isSingleFilmLoading = false;
       })
+      .addCase(getSingleFilmAction.rejected, (state) => {
+        state.isSingleFilmLoading = false;
+      })
       .addCase(getSimilarFilmsAction.fulfilled, (state, action) => {
         state.similarFilms = action.payload;
       })

@@ -23,6 +23,7 @@ export type FilmsProcess = {
 export type CommentsProcess = {
   comments: Comments | null;
   isCommentsLoading: boolean;
+  isCommentSending: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

@@ -12,8 +12,9 @@ import { getSingleFilmAction, getSimilarFilmsAction } from '../../store/api-acti
 import { useEffect } from 'react';
 import { resetIsSingleFilmLoading } from '../../store/processes/films-process/films-process';
 import AddReviewButton from '../../components/add-review-button/add-review-button';
-import { Symbols } from '../../const';
+import { AppRoutes, Symbols } from '../../const';
 import { getCurrentFilm, getSimilarFilms, getIsSingleFilmLoading } from '../../store/processes/films-process/films-selectors';
+import { redirectToRoute } from '../../store/actions';
 
 function FilmPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,6 +31,13 @@ function FilmPage(): JSX.Element {
       dispatch(getSimilarFilmsAction(id));
     }
   }, [id, dispatch]);
+
+  useEffect(() => {
+    if (!isSingleFilmLoading && !currentFilm) {
+      dispatch(redirectToRoute(AppRoutes.NotFound));
+      dispatch(resetIsSingleFilmLoading());
+    }
+  }, [dispatch, isSingleFilmLoading, currentFilm]);
 
   if (isSingleFilmLoading) {
     return <Loading />;

@@ -4,6 +4,10 @@ const MORE_LIKE_THIS_MAX_COUNT = 4;
 const FILMS_COUNT_STEP = 8;
 const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 const NOT_VALID_RATING = '0';
+const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+const CONTAINS_DIGIT_REGEXP = /\d/;
+const CONTAINS_LETTER_REGEXP = /[a-zA-Z]/;
+const SHOW_ERROR_DURATION = 5000;
 
 enum AppRoutes {
   Main = '/',
@@ -70,7 +74,8 @@ enum MyListButtonStatuses {
 }
 
 enum Messages {
-  EmptyFilmList = 'Список фильмов пуст'
+  EmptyFilmList = 'Список фильмов пуст',
+  WrongLoginOrPass = 'Вы ввели что-то не то'
 }
 
 enum NameSpace {
@@ -146,5 +151,9 @@ export {
   GENRES,
   FILMS_COUNT_STEP,
   AUTH_TOKEN_KEY_NAME,
-  NOT_VALID_RATING
+  NOT_VALID_RATING,
+  EMAIL_REGEXP,
+  CONTAINS_DIGIT_REGEXP,
+  CONTAINS_LETTER_REGEXP,
+  SHOW_ERROR_DURATION
 };

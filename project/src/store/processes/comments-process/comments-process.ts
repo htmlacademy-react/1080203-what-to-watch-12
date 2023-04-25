@@ -8,7 +8,8 @@ import {
 
 const initialState: CommentsProcess = {
   comments: null,
-  isCommentsLoading: true
+  isCommentsLoading: true,
+  isCommentSending: false
 };
 
 export const commentsProcess = createSlice({
@@ -25,8 +26,16 @@ export const commentsProcess = createSlice({
         state.comments = action.payload;
         state.isCommentsLoading = false;
       })
+      .addCase(sendCommentAction.pending, (state) => {
+        state.isCommentSending = true;
+      })
       .addCase(sendCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
+        state.isCommentSending = false;
+      })
+      .addCase(sendCommentAction.rejected, (state) => {
+        state.comments = null;
+        state.isCommentSending = false;
       });
   }
 });

@@ -1,12 +1,14 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
-import { useRef, FormEvent, useEffect } from 'react';
+import { useRef, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData } from '../../types/auth-data-type';
 import { loginAction } from '../../store/api-actions';
-import { AuthStatuses, AppRoutes } from '../../const';
+import { AuthStatuses, AppRoutes, Messages, SHOW_ERROR_DURATION } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../store/processes/user-process/user-selectors';
+import { isEmail, isPassword } from '../../utils';
+import Error from '../../components/error/error';
 
 function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -15,6 +17,7 @@ function SignInPage(): JSX.Element {
   const isAuth = authorizationStatus === AuthStatuses.Auth;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [showError, setShowError] = useState<boolean>(false);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -23,13 +26,23 @@ function SignInPage(): JSX.Element {
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current && passwordRef.current && isEmail(loginRef.current?.value) && isPassword(passwordRef.current?.value)) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
+    } else {
+      setShowError(true);
     }
   };
+
+  useEffect(() => {
+    if (showError) {
+      setTimeout(() => {
+        setShowError(false);
+      }, SHOW_ERROR_DURATION);
+    }
+  });
 
   useEffect(() => {
     if (isAuth) {
@@ -39,6 +52,8 @@ function SignInPage(): JSX.Element {
 
   return (
     <div className="user-page">
+      <Error showError={showError} message={Messages.WrongLoginOrPass} />
+
       <header className="page-header user-page__head">
         <Logo />
 

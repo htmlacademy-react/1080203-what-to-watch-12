@@ -2,7 +2,7 @@ import { FILM_RATINGS } from '../../const';
 import React from 'react';
 import { AddReviewStarsProps } from '../../types/add-review-stars-props';
 
-function AddReviewStars({ changeRatingHandler }: AddReviewStarsProps): JSX.Element {
+function AddReviewStars({ changeRatingHandler, isCommentSending }: AddReviewStarsProps): JSX.Element {
   return (
     <div className="rating__stars">
       {FILM_RATINGS.map((rating) => (
@@ -14,6 +14,7 @@ function AddReviewStars({ changeRatingHandler }: AddReviewStarsProps): JSX.Eleme
             name="rating"
             value={rating}
             onChange={changeRatingHandler}
+            disabled={isCommentSending}
           />
           <label
             className="rating__label"

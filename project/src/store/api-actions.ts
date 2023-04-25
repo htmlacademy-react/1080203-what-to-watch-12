@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { State } from '../types/state-type';
 import { AppDispatch } from '../types/state-type';
 import { Films, Film } from '../types/films-type';
